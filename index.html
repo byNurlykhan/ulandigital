@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="kk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ұлан — Жас тілшілер мен жасөспірімдер платформасы</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;950&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111111;
+            color: #FFFFFF;
+        }
+
+        /* Custom Technical Grid for Hero Section */
+        .hero-grid {
+            background-color: #0000CC;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* Glassmorphism Styling */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        /* Tight tracking for bold headers */
+        .heading-tight {
+            letter-spacing: -0.04em;
+            line-height: 0.95;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111111;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0000CC;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B0FB26;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <nav class="fixed top-0 left-0 w-full z-50 glass-card border-t-0 border-x-0 px-4 sm:px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <span class="text-xl sm:text-2xl font-black tracking-tighter text-white bg-[#0000CC] px-2.5 sm:px-3 py-1 rounded-lg border border-white/20">ҰЛАН</span>
+                <span class="text-[10px] sm:text-xs text-[#B0FB26] font-mono tracking-widest hidden xs:inline">EST. 1930</span>
+            </div>
+            <div class="flex items-center space-x-3 sm:space-x-6 text-xs sm:text-sm font-semibold">
+                <a href="https://ulan.kazgazeta.kz" target="_blank" class="text-white/80 hover:text-[#B0FB26] transition-colors">Ресми сайт</a>
+                <a href="#about" class="text-white/80 hover:text-[#B0FB26] transition-colors hidden sm:inline">Тарихы</a>
+                <a href="#write-article" class="bg-[#B0FB26] text-[#111111] px-3 sm:px-4 py-2 rounded-full font-bold hover:scale-105 transition-transform text-xs sm:text-sm">Хат жазу</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-grid min-h-screen pt-28 pb-16 px-4 sm:px-6 flex flex-col justify-center relative overflow-hidden">
+        <div class="absolute top-1/4 right-10 w-32 h-32 text-[#B0FB26] opacity-20 pointer-events-none hidden md:block">
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+                <path d="M10,50 L90,50 M70,30 L90,50 L70,70" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <div class="absolute bottom-10 left-5 w-24 h-24 text-black opacity-30 pointer-events-none hidden md:block">
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4">
+                <circle cx="50" cy="50" r="40" stroke-dasharray="10 5"/>
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <div class="lg:col-span-7 space-y-4 sm:space-y-6">
+                <div class="inline-block bg-black text-[#B0FB26] font-mono text-[10px] sm:text-xs px-3 py-1 rounded-full uppercase tracking-widest font-bold">
+                    🚀 Реформация кезеңі: 96 жылдық тарих
+                </div>
+                <h1 class="text-4xl sm:text-6xl lg:text-8xl font-black heading-tight text-white uppercase break-words">
+                    Сенің сөзің — <br><span class="text-[#B0FB26]">елдің үні.</span>
+                </h1>
+                <p class="text-base sm:text-xl text-white/80 max-w-xl font-medium">
+                    1930 жылдан бері еліміздің бас балалар газеті сенің шығармашылығың мен ой-пікіріңді күтеді. Мақалаңды жолда, анонимді сырыңмен бөліс, тарихтың бір бөлшегіне айнал!
+                </p>
+                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
+                    <a href="#write-article" class="bg-[#B0FB26] text-[#111111] text-base sm:text-lg font-extrabold px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl shadow-lg hover:bg-white hover:scale-105 transition-all duration-300 text-center">
+                        Мақала жолдау
+                    </a>
+                    <a href="#anonymous-zone" class="glass-card text-white text-base sm:text-lg font-extrabold px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl hover:bg-white/10 transition-all duration-300 text-center">
+                        Сырласу бөлмесі
+                    </a>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 w-full">
+                <div class="glass-card p-5 sm:p-8 rounded-[24px] sm:rounded-[32px] space-y-4 sm:space-y-6 relative">
+                    <div class="absolute -top-3 right-4 bg-[#B0FB26] text-black font-mono text-[10px] sm:text-xs font-bold px-2.5 py-1 rounded-md transform rotate-3 shadow-md">
+                        WEB 3.0 СТИЛЬ
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-extrabold text-[#B0FB26]">«Ұлан» статистикасы</h3>
+                    <div class="grid grid-cols-2 gap-3 sm:gap-4">
+                        <div class="p-3 sm:p-4 bg-white/5 rounded-2xl border border-white/5">
+                            <div class="text-2xl sm:text-3xl font-black text-white">96 жыл</div>
+                            <div class="text-[11px] sm:text-xs text-white/60 mt-1">Баспасөз тарихында</div>
+                        </div>
+                        <div class="p-3 sm:p-4 bg-white/5 rounded-2xl border border-white/5">
+                            <div class="text-2xl sm:text-3xl font-black text-white">50К+</div>
+                            <div class="text-[11px] sm:text-xs text-white/60 mt-1">Жас тілшілер қауымдастығы</div>
+                        </div>
+                    </div>
+                    <div class="p-3 sm:p-4 bg-[#111111]/60 rounded-2xl border border-white/10 flex items-center space-x-3">
+                        <div class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500 flex-shrink-0 animate-pulse"></div>
+                        <p class="text-xs sm:text-sm text-white/90">Қазір платформада <span class="font-bold text-[#B0FB26]">142 оқушы</span> хат жазып жатыр...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white text-[#111111] py-16 sm:py-24 px-4 sm:px-6 rounded-t-[24px] sm:rounded-t-[48px] -mt-8 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16">
+                <div>
+                    <span class="text-[#0000CC] font-mono text-xs font-bold tracking-widest uppercase block mb-2">// ЖАС ТІЛШІЛЕР МЕКТЕБІ</span>
+                    <h2 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight uppercase">Журналистика негіздері</h2>
+                </div>
+                <p class="text-gray-600 max-w-md mt-3 md:mt-0 font-medium text-sm sm:text-base">
+                    Газет бетіне шықпас бұрын әрбір жас тілші білуі тиіс маңызды ережелер мен бағыттар.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+                <div class="group bg-gray-50 border-2 border-gray-100 p-6 sm:p-8 rounded-[20px] sm:rounded-[24px] hover:border-[#0000CC] hover:bg-white hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#0000CC] text-white flex items-center justify-center font-bold text-lg sm:text-xl mb-4 sm:mb-6 group-hover:scale-110 transition-transform">01</div>
+                    <h3 class="text-xl sm:text-2xl font-black mb-3 sm:mb-4 uppercase">Журналист этикасы</h3>
+                    <p class="text-gray-600 leading-relaxed text-sm sm:text-base font-medium">
+                        Ақпараттың нақтылығы мен шынайылығы — басты қару. Ешқашан біреудің рұқсатынсыз суретін немесе жеке деректерін жариялама. Әрқашан фактілерді тексер және кейіпкеріңе құрметпен қара.
+                    </p>
+                </div>
+                <div class="group bg-gray-50 border-2 border-gray-100 p-6 sm:p-8 rounded-[20px] sm:rounded-[24px] hover:border-[#0000CC] hover:bg-white hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#B0FB26] text-[#111111] flex items-center justify-center font-bold text-lg sm:text-xl mb-4 sm:mb-6 group-hover:scale-110 transition-transform">02</div>
+                    <h3 class="text-xl sm:text-2xl font-black mb-3 sm:mb-4 uppercase">14 жастағы журналист не жаза алады?</h3>
+                    <p class="text-gray-600 leading-relaxed text-sm sm:text-base font-medium">
+                        Мектеп өмірі, замандастардың жетістіктері, экологиялық мәселелер, жаңа технологиялар мен кітап/кино шолулары! Сені толғандыратын кез келген тақырып қоғам үшін маңызды болуы мүмкүн.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="write-article" class="bg-gray-50 text-[#111111] py-16 sm:py-24 px-4 sm:px-6 border-t border-gray-200">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-10 sm:mb-16">
+                <span class="bg-[#0000CC] text-white font-mono text-xs px-3 py-1 rounded-full uppercase font-bold tracking-wider">Қабылдау бөлмесі</span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight uppercase mt-4">«Хат жазамын» бөлімі</h2>
+                <p class="text-gray-600 mt-2 text-sm sm:text-base font-medium">Мақалаңызды барлық қажетті деректермен жүйелі түрде жолдаңыз</p>
+            </div>
+
+            <form id="articleForm" class="bg-white p-5 sm:p-8 md:p-12 rounded-[24px] sm:rounded-[32px] shadow-xl space-y-5 sm:space-y-6 border border-gray-100">
+                <div class="space-y-1.5">
+                    <label class="block text-xs sm:text-sm font-extrabold uppercase tracking-wide text-gray-700">Мақаланың тақырыбы *</label>
+                    <input type="text" id="artTitle" required class="w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-2 border-gray-200 focus:border-[#0000CC] focus:outline-none transition-colors font-semibold text-sm sm:text-base" placeholder="Мысалы: Мектебіміздегі жаңа эко-клуб">
+                </div>
+
+                <div class="space-y-1.5">
+                    <label class="block text-xs sm:text-sm font-extrabold uppercase tracking-wide text-gray-700">Қысқаша баяндау (Анонс, Лид) *</label>
+                    <textarea id="artLead" required rows="2" class="w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-2 border-gray-200 focus:border-[#0000CC] focus:outline-none transition-colors font-semibold text-sm sm:text-base" placeholder="Мақаланың негізгі мазмұны туралы 2-3 сөйлем..."></textarea>
+                </div>
+
+                <div class="space-y-1.5">
+                    <label class="block text-xs sm:text-sm font-extrabold uppercase tracking-wide text-gray-700">Мақаланың толық мәтіні *</label>
+                    <textarea id="artBody" required rows="6" class="w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-2 border-gray-200 focus:border-[#0000CC] focus:outline-none transition-colors font-semibold text-sm sm:text-base" placeholder="Осы жерге мақалаңыздың толық мәтінін жазыңыз немесе қойыңыз..."></textarea>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+                    <div class="space-y-1.5">
+                        <label class="block text-xs sm:text-sm font-extrabold uppercase tracking-wide text-gray-700">Авторы (Толық аты-жөні) *</label>
+                        <input type="text" id="artAuthor" required class="w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-2 border-gray-200 focus:border-[#0000CC] focus:outline-none transition-colors font-semibold text-sm sm:text-base" placeholder="Асанәлі Райымбеков">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="block text-xs sm:text-sm font-extrabold uppercase tracking-wide text-gray-700">WhatsApp нөмірі *</label>
+                        <input type="tel" id="artPhone" required class="w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-2 border-gray-200 focus:border-[#0000CC] focus:outline-none transition-colors font-semibold text-sm sm:text-base" placeholder="+7 (707) 000-00-00">
+                        <p class="text-[10px] sm:text-[11px] text-gray-500 leading-tight bg-gray-50 p-2 rounded-lg border border-dashed mt-1">
+                            ⚠️ Пайдаланушы нөмірі құпиялық мақсатында тек қана сайт жасаушы адамға және редакция өкіліне көрінеді. Үшінші тұлғаға берілмейді.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+                    <div class="space-y-1.5">
+                        <label class="block text-xs sm:text-sm font-extrabold uppercase tracking-wide text-gray-700">Мекенжайы *</label>
+                        <input type="text" id="artAddress" required class="w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-2 border-gray-200 focus:border-[#0000CC] focus:outline-none transition-colors font-semibold text-sm sm:text-base" placeholder="Облыс, Қала, Аудан, Ауыл">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="block text-xs sm:text-sm font-extrabold uppercase tracking-wide text-gray-700">Мектебі және сыныбы *</label>
+                        <input type="text" id="artSchool" required class="w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-2 border-gray-200 focus:border-[#0000CC] focus:outline-none transition-colors font-semibold text-sm sm:text-base" placeholder="№12 лицей, 9 «А» сыныбы">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-[#0000CC] text-white text-base sm:text-lg font-black uppercase tracking-wide py-3.5 sm:py-4 rounded-xl hover:bg-black transition-colors duration-300 mt-4 shadow-md">
+                    Мақаланы редакцияға жіберу 🚀
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <section id="anonymous-zone" class="hero-grid py-16 sm:py-24 px-4 sm:px-6 relative">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-10 sm:mb-12">
+                <span class="bg-[#B0FB26] text-[#111111] font-mono text-xs px-3 py-1 rounded-full uppercase font-bold tracking-wider">Рубрика</span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight uppercase text-white mt-4">«Жасөспірімдердің досы»</h2>
+                <p class="text-white/80 mt-2 text-sm sm:text-base font-medium">Ішкі сырыңмен, ешкімге айта алмаған уайымыңмен анонимді түрде бөліс. Мына жерден айдар таңдап хат жолда:</p>
+            </div>
+
+            <div class="glass-card p-5 sm:p-8 md:p-12 rounded-[24px] sm:rounded-[32px] space-y-5 sm:space-y-6">
+                <div class="space-y-3">
+                    <label class="block text-xs font-mono uppercase tracking-widest text-[#B0FB26]">Хаттың бағытын таңдаңыз:</label>
+                    <div class="flex flex-col sm:flex-row gap-2.5 sm:gap-3" id="categoryContainer">
+                        <button type="button" onclick="selectCategory(this, 'Әке, мен ержеттім...')" class="category-btn w-full sm:w-auto text-left sm:text-center px-4 sm:px-5 py-3 rounded-xl border-2 border-white/20 bg-white/5 font-bold hover:border-[#B0FB26] transition-all text-xs sm:text-sm text-white">
+                            👨‍👦 «Әке, мен ержеттім...»
+                        </button>
+                        <button type="button" onclick="selectCategory(this, 'Анашым, сырласайықшы..')" class="category-btn w-full sm:w-auto text-left sm:text-center px-4 sm:px-5 py-3 rounded-xl border-2 border-white/20 bg-white/5 font-bold hover:border-[#B0FB26] transition-all text-xs sm:text-sm text-white">
+                            👩‍👦 «Анашым, сырласайықшы..»
+                        </button>
+                        <button type="button" onclick="selectCategory(this, 'Досым, тыңдашы')" class="category-btn w-full sm:w-auto text-left sm:text-center px-4 sm:px-5 py-3 rounded-xl border-2 border-white/20 bg-white/5 font-bold hover:border-[#B0FB26] transition-all text-xs sm:text-sm text-white">
+                            🤝 «Досым, тыңдашы»
+                        </button>
+                    </div>
+                    <input type="hidden" id="selectedCategory" value="">
+                </div>
+
+                <form id="anonymousForm" class="space-y-5 sm:space-y-6">
+                    <div class="space-y-1.5">
+                        <label class="block text-xs font-mono uppercase tracking-widest text-white/70">Сенің хатың (Толықтай анонимді) *</label>
+                        <textarea required id="anonText" rows="5" class="w-full bg-black/40 text-white px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-2 border-white/10 focus:border-[#B0FB26] focus:outline-none transition-colors font-medium text-sm sm:text-base placeholder-white/30" placeholder="Осы жерге жүрек сырыңды жаз..."></textarea>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label class="block text-xs font-mono uppercase tracking-widest text-white/70">Кері байланыс (Қалауың бойынша)</label>
+                        <input type="text" id="anonContact" class="w-full bg-black/40 text-white px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-2 border-white/10 focus:border-[#B0FB26] focus:outline-none transition-colors font-medium text-sm sm:text-base placeholder-white/30" placeholder="Аты-жөні, пошта немесе телефон (жауап алғың келсе)">
+                    </div>
+
+                    <button type="submit" class="w-full bg-[#B0FB26] text-[#111111] text-base sm:text-lg font-black uppercase tracking-wide py-3.5 sm:py-4 rounded-xl hover:bg-white transition-colors duration-300 shadow-md">
+                        Анонимді хатты жолдау 🔒
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="bg-white text-[#111111] py-16 sm:py-24 px-4 sm:px-6 rounded-b-[24px] sm:rounded-b-[48px] relative z-10">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            <div class="lg:col-span-7 space-y-4 sm:space-y-6">
+                <span class="text-[#0000CC] font-mono text-xs font-bold tracking-widest uppercase block">// ҒАСЫРҒА ЖУЫҚ ТАРИХ</span>
+                <h2 class="text-3xl sm:text-5xl font-black tracking-tight uppercase">«Ұлан» газеті туралы</h2>
+                <p class="text-gray-700 font-medium text-sm sm:text-lg leading-relaxed">
+                    «Ұлан» — 1930 жылдың 14 наурызынан бастап жарық көріп келе жатқан республикалық балалар мен жасөспірімдер газеті. Әр жылдары «Пионер», «Қазақстан пионері» деген атаулармен шықты. Бұл жай ғана газет емес — бұл Қазақстанның белгілі жазушылары мен журналистерінің алғашқы қадамы басталған үлкен шығармашылық мектеп.
+                </p>
+                <div class="p-4 sm:p-6 bg-gray-50 border-l-4 border-[#0000CC] rounded-r-2xl">
+                    <p class="italic text-gray-600 text-xs sm:text-base font-medium">"«Ұланнан» қанат қағып, еліміздің бас баспасөз саласын басқарып отырған жүздеген кәсіби журналистер бар. Ендігі кезек — сенікі!"</p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 w-full">
+                <div class="bg-[#111111] text-white p-6 sm:p-8 rounded-[20px] sm:rounded-[24px] border-4 border-[#0000CC] shadow-2xl relative overflow-hidden">
+                    <div class="absolute -right-8 -bottom-8 w-32 h-32 text-[#B0FB26]/10 pointer-events-none">
+                        <svg viewBox="0 0 100 100" fill="currentColor"><circle cx="50" cy="50" r="50"/></svg>
+                    </div>
+                    <div class="flex justify-between items-start mb-6 sm:mb-8">
+                        <div>
+                            <h4 class="text-lg sm:text-xl font-black text-[#B0FB26] uppercase">«Жас тілші»</h4>
+                            <p class="text-[10px] sm:text-xs text-white/60 font-mono">РЕЖИМ: АКТИВТІ</p>
+                        </div>
+                        <span class="text-[10px] sm:text-xs font-mono border border-white/20 px-2 py-1 rounded">ID: 2026-ULAN</span>
+                    </div>
+                    <div class="space-y-4 mb-6">
+                        <p class="text-xs sm:text-sm text-white/80 font-medium leading-relaxed">
+                            Белсенді түрде хат жазып, мақаласы жарық көрген оқушыға ресми <strong class="text-[#B0FB26]">«Жас тілші» куәлігі</strong> және редакция атынан брендтік мерч жиынтығы беріледі!
+                        </p>
+                    </div>
+                    <button onclick="scrollToForm()" class="w-full bg-[#0000CC] text-white font-bold py-3 rounded-xl hover:bg-[#B0FB26] hover:text-[#111111] transition-colors text-xs sm:text-sm uppercase tracking-wider">
+                        Куәлік алуға өтініш беру
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#111111] text-white/60 text-xs sm:text-sm py-10 sm:py-12 px-4 sm:px-6 border-t border-white/10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <div class="text-xl font-black text-white tracking-tighter mb-1 sm:mb-2">ҰЛАН ГАЗЕТІ</div>
+                <p>© 1930-2026 «Ұлан» республикалық газеті. Барлық құқықтар қорғалған.</p>
+            </div>
+            <div class="flex space-x-6 text-white font-semibold">
+                <a href="https://instagram.com" target="_blank" class="hover:text-[#B0FB26] transition-colors">Instagram</a>
+                <a href="https://tiktok.com" target="_blank" class="hover:text-[#B0FB26] transition-colors">TikTok</a>
+                <a href="mailto:ulangazeti@gmail.com" class="hover:text-[#B0FB26] transition-colors">Байланыс</a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="successModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+        <div class="glass-card bg-[#111111] max-w-md w-full p-6 sm:p-8 rounded-[20px] sm:rounded-[24px] text-center border-2 border-[#B0FB26] transform scale-95 transition-transform duration-300 space-y-4 sm:space-y-6">
+            <div class="w-12 h-12 sm:w-16 sm:h-16 bg-[#B0FB26] text-[#111111] rounded-full flex items-center justify-center mx-auto text-2xl sm:text-3xl font-bold animate-bounce">
+                ✓
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-black uppercase text-white tracking-tight" id="modalTitle">Сәтті жіберілді!</h3>
+            <p class="text-xs sm:text-sm text-white/80 font-medium leading-relaxed" id="modalDescription">
+                Сіздің хатыңыз «Ұлан» газетінің орталық базасына қабылданды. Тексерістен соң редакторлар сізбен байланысады.
+            </p>
+            <button onclick="closeModal()" class="w-full bg-white text-[#111111] font-extrabold py-3 rounded-xl hover:bg-[#B0FB26] transition-colors text-sm">
+                Жақсы, рақмет!
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Anonymous category selection dynamic styling
+        function selectCategory(button, val) {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('border-[#B0FB26]', 'bg-[#B0FB26]/10', 'text-[#B0FB26]');
+                btn.classList.add('border-white/20', 'bg-white/5', 'text-white');
+            });
+            button.classList.remove('border-white/20', 'bg-white/5', 'text-white');
+            button.classList.add('border-[#B0FB26]', 'bg-[#B0FB26]/10', 'text-[#B0FB26]');
+            document.getElementById('selectedCategory').value = val;
+        }
+
+        // Send Email integration via mailto link generation
+        function triggerMailGo(subject, bodyText) {
+            const encodedSubject = encodeURIComponent(subject);
+            const encodedBody = encodeURIComponent(bodyText);
+            window.location.href = `mailto:ulangazeti@gmail.com?subject=${encodedSubject}&body=${encodedBody}`;
+        }
+
+        // Form submission triggers
+        document.getElementById('articleForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('artTitle').value;
+            const lead = document.getElementById('artLead').value;
+            const body = document.getElementById('artBody').value;
+            const author = document.getElementById('artAuthor').value;
+            const phone = document.getElementById('artPhone').value;
+            const address = document.getElementById('artAddress').value;
+            const school = document.getElementById('artSchool').value;
+
+            const emailText = `--- ЖАҢА МАҚАЛА ҚАБЫЛДАНДЫ ---\n\n` +
+                              `ТАҚЫРЫБЫ: ${title}\n` +
+                              `ҚЫСҚАША АНОНС (ЛИД): ${lead}\n\n` +
+                              `ТОЛЫҚ МӘТІНІ:\n${body}\n\n` +
+                              `---------------------------------------\n` +
+                              `AВТОРЫ: ${author}\n` +
+                              `WHATSAPP НӨМІРІ: ${phone}\n` +
+                              `МЕКЕНЖАЙЫ: ${address}\n` +
+                              `МЕКТЕБІ МЕН СЫНЫБЫ: ${school}\n`;
+
+            openModal('Поштаға дайындалды! 🚀', 'Сіздің мақалаңыз мәтін ретінде дайындалды. Қазір пошта қолданбасы ашылады, "Жіберу" (Send) батырмасын басыңыз.');
+            
+            setTimeout(() => {
+                triggerMailGo(`Жаңа мақала: ${title} (Авторы: ${author})`, emailText);
+            }, 1500);
+
+            this.reset();
+        });
+
+        document.getElementById('anonymousForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const category = document.getElementById('selectedCategory').value || "Жасөспірімдердің досы рубрикасы";
+            const text = document.getElementById('anonText').value;
+            const contact = document.getElementById('anonContact').value || "Көрсетілмеген (Толық анонимді)";
+            
+            const emailText = `--- АНОНИМДІ ХАТ ҚАБЫЛДАНДЫ ---\n\n` +
+                              `АЙДАРЫ: ${category}\n\n` +
+                              `ХАТ МӘТІНІ:\n${text}\n\n` +
+                              `---------------------------------------\n` +
+                              `КЕРІ БАЙЛАНЫС ДЕРЕГІ (ҚАЛАУЫ БОЙЫНША): ${contact}\n`;
+
+            openModal('Құпия хат дайындалды! 🔒', 'Сіздің анонимді хатыңыз дайын болды. Пошта қолданбасы арқылы инкогнито форматында жіберіледі.');
+            
+            setTimeout(() => {
+                triggerMailGo(`Анонимді хат: ${category}`, emailText);
+            }, 1500);
+
+            this.reset();
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('border-[#B0FB26]', 'bg-[#B0FB26]/10', 'text-[#B0FB26]');
+                btn.classList.add('border-white/20', 'bg-white/5', 'text-white');
+            });
+            document.getElementById('selectedCategory').value = '';
+        });
+
+        // Modal mechanism
+        function openModal(title, desc) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDescription').innerText = desc;
+            
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.querySelector('div').classList.remove('scale-95');
+            }, 50);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.add('opacity-0');
+            modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function scrollToForm() {
+            document.getElementById('write-article').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
