@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ұлан — Жас тілшілер мен жасөспірімдер платформасы</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;950&display=swap" rel="stylesheet">
@@ -55,23 +57,29 @@
         }
     </style>
 </head>
-<body class="antialiased overflow-x-hidden">
+<body class="antialiased overflow-x-hidden" id="body">
 
+    <!-- NAVIGATION -->
     <nav class="fixed top-0 left-0 w-full z-50 glass-card border-t-0 border-x-0 px-4 sm:px-6 py-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <span class="text-xl sm:text-2xl font-black tracking-tighter text-white bg-[#0000CC] px-2.5 sm:px-3 py-1 rounded-lg border border-white/20">ҰЛАН</span>
-                <span class="text-[10px] sm:text-xs text-[#B0FB26] font-mono tracking-widest hidden xs:inline">EST. 1930</span>
+            <!-- Official PNG Logo -->
+            <div class="flex items-center space-x-4">
+                <a href="#body" class="block">
+                    <img src="ulan_png_logo.png" alt="Ұлан Газеті Логотипі" class="h-[56px] sm:h-[60px] md:h-[64px] w-auto object-contain transition-transform hover:scale-105">
+                </a>
+                <span class="text-[10px] sm:text-xs text-[#B0FB26] font-mono tracking-widest hidden sm:inline">EST. 1930</span>
             </div>
             <div class="flex items-center space-x-3 sm:space-x-6 text-xs sm:text-sm font-semibold">
                 <a href="https://ulan.kazgazeta.kz/" target="_blank" class="text-white/80 hover:text-[#B0FB26] transition-colors">Ресми сайт</a>
                 <a href="#about" class="text-white/80 hover:text-[#B0FB26] transition-colors hidden sm:inline">Тарихы</a>
-                <a href="#write-article" class="bg-[#B0FB26] text-[#111111] px-3 sm:px-4 py-2 rounded-full font-bold hover:scale-105 transition-transform text-xs sm:text-sm">Хат жазу</a>
+                <a href="#editorial-team" class="text-white/80 hover:text-[#B0FB26] transition-colors hidden md:inline">Редакция</a>
+                <a href="#write-article" class="bg-[#B0FB26] text-[#111111] px-4 py-2.5 rounded-full font-bold hover:scale-105 transition-transform text-xs sm:text-sm shadow-md">Хат жазу</a>
             </div>
         </div>
     </nav>
 
-    <section class="hero-grid min-h-screen pt-28 pb-16 px-4 sm:px-6 flex flex-col justify-center relative overflow-hidden">
+    <!-- HERO SECTION -->
+    <section class="hero-grid min-h-screen pt-44 pb-16 px-4 sm:px-6 flex flex-col justify-center relative overflow-hidden">
         <div class="absolute top-1/4 right-10 w-32 h-32 text-[#B0FB26] opacity-20 pointer-events-none hidden md:block">
             <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
                 <path d="M10,50 L90,50 M70,30 L90,50 L70,70" stroke-linecap="round" stroke-linejoin="round"/>
@@ -95,15 +103,16 @@
                     1930 жылдан бері еліміздің бас балалар газеті сенің шығармашылығың мен ой-пікіріңді күтеді. Мақалаңды жолда, анонимді сырыңмен бөліс, тарихтың бір бөлшегіне айнал!
                 </p>
                 <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
-                    <a href="#write-article" class="bg-[#B0FB26] text-[#111111] text-base sm:text-lg font-extrabold px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl shadow-lg hover:bg-white hover:scale-105 transition-all duration-300 text-center">
+                    <a href="#write-article" class="bg-[#B0FB26] text-[#111111] text-base sm:text-lg font-extrabold px-6 sm:px-8 py-4 rounded-2xl shadow-lg hover:bg-white hover:scale-105 transition-all duration-300 text-center flex items-center justify-center">
                         Мақала жолдау
                     </a>
-                    <a href="#anonymous-zone" class="glass-card text-white text-base sm:text-lg font-extrabold px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl hover:bg-white/10 transition-all duration-300 text-center">
+                    <a href="#anonymous-zone" class="glass-card text-white text-base sm:text-lg font-extrabold px-6 sm:px-8 py-4 rounded-2xl hover:bg-white/10 transition-all duration-300 text-center flex items-center justify-center">
                         Сырласу бөлмесі
                     </a>
                 </div>
             </div>
 
+            <!-- Glassmorphism Info Widget -->
             <div class="lg:col-span-5 w-full">
                 <div class="glass-card p-5 sm:p-8 rounded-[24px] sm:rounded-[32px] space-y-4 sm:space-y-6 relative">
                     <div class="absolute -top-3 right-4 bg-[#B0FB26] text-black font-mono text-[10px] sm:text-xs font-bold px-2.5 py-1 rounded-md transform rotate-3 shadow-md">
@@ -129,6 +138,7 @@
         </div>
     </section>
 
+    <!-- JOURNALISM SCHOOL -->
     <section class="bg-white text-[#111111] py-16 sm:py-24 px-4 sm:px-6 rounded-t-[24px] sm:rounded-t-[48px] -mt-8 relative z-10">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16">
@@ -137,7 +147,7 @@
                     <h2 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight uppercase">Журналистика негіздері</h2>
                 </div>
                 <p class="text-gray-600 max-w-md mt-3 md:mt-0 font-medium text-sm sm:text-base">
-                    Балалар мен жасөспірімдер өз медиа платформаларын жүргізгенде (блог, әлеуметтік желі, газет) үлкен журналистер сияқты жауапкершілікті сезінуі керек. Олар білуі тиіс 5 негізгі этикалық ереже:
+                    Балалар мен жасөспірімдер өз медиа платформаларын жүргізгенде үлкен журналистер сияқты жауапкершілікті сезінуі керек. Олар білуі тиіс басты этикалық ережелер:
                 </p>
             </div>
 
@@ -167,7 +177,7 @@
                     <div class="w-10 h-10 rounded-xl bg-[#0000CC] text-white flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">4</div>
                     <h3 class="text-lg font-black mb-2 uppercase text-[#0000CC]">Әділдік және бейтараптық</h3>
                     <p class="text-gray-600 text-sm font-medium leading-relaxed">
-                        Жасөспірім журналист өз платформасында кез келген мәселені екі жақты, әділ көрсетуі тиіс. Біреуді балағаттауға, кемсітуге, ренжітуге немесе жала жабуға жол берілмейді. Этиканы сақтайтын блогер ешқашан кибербуллингпен (желідегі қудалаумен) айналыспайды.
+                        Жасөспірім журналист өз платформасында кез келген мәселені екі жақты, әділ көрсетуі тиіс. Біреуді балағаттауға, кемсітуге, ренжітуге немесе жала жабуға жол берілмейді. Этиканы сақтайтын блогер ешқашан кибербуллингпен айналыспайды.
                     </p>
                 </div>
                 <div class="group bg-gray-50 border-2 border-gray-100 p-6 rounded-[20px] hover:border-[#0000CC] hover:bg-white hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
@@ -177,21 +187,71 @@
                         Егер сен өз жазбаңда байқаусызда қате жіберсең немесе бұрыс ақпарат таратып қойсаң, оны жасырмай, бірден мойындауың керек. Жақсы журналист қателігін тез арада түзетіп, оқырмандарынан кешірім сұрайды. Бұл сенің жауапкершілігің мен есейгеніңді көрсетеді.
                     </p>
                 </div>
+            </div>
 
-                <div class="group bg-black text-[#B0FB26] p-6 rounded-[20px] hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between">
-                    <div>
-                        <div class="text-xs font-mono uppercase tracking-widest text-white/60 mb-2">// РҰҚСАТ ЕТІЛГЕН ТАҚЫРЫПТАР</div>
-                        <h3 class="text-xl font-black uppercase mb-3 text-white">14 жастағы журналист не жаза алады?</h3>
-                        <p class="text-white/80 text-xs font-medium leading-relaxed">
-                            Мектеп өмірі, замандастардың жетістіктері, экологиялық мәселелер, жаңа технологиялар мен кітап/кино шолулары! Сені толғандыратын кез келген тақырып қоғам үшін маңызды болуы мүмкін.
-                        </p>
+            <!-- SECTION: ЖАС ТІЛШІ МАҚАЛАНЫ ҚАЛАЙ ЖАЗУ КЕРЕК? -->
+            <div class="border-t-2 border-gray-100 pt-16">
+                <div class="mb-10">
+                    <span class="text-[#0000CC] font-mono text-xs font-bold tracking-widest uppercase block mb-2">// ТІЛШІГЕ ПРАКТИКАЛЫҚ НҰСҚАУЛЫҚ</span>
+                    <h2 class="text-2xl sm:text-4xl font-black tracking-tight uppercase text-[#111111]">Жас тілші мақаланы қалай жазу керек?</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                    <div class="group bg-[#0000CC] text-white p-6 rounded-[24px] hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between shadow-lg">
+                        <div>
+                            <div class="w-8 h-8 rounded-lg bg-[#B0FB26] text-[#111111] flex items-center justify-center font-black text-sm mb-4">A</div>
+                            <h3 class="text-lg font-black uppercase mb-2 text-[#B0FB26]">Өз әлемінен баста</h3>
+                            <p class="text-white/90 text-sm font-medium leading-relaxed">
+                                Өз әлемінен баста — мектеп, достар, спорт, хобби, кітаптар мен жобалар туралы жаз. Бұл ең сенімді әрі қызықты тақырыптар.
+                            </p>
+                        </div>
                     </div>
-                    <span class="text-right text-sm font-mono mt-4 text-white font-bold">📢 Өз үніңді қос!</span>
+
+                    <div class="group bg-[#111111] text-[#B0FB26] p-6 rounded-[24px] hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between shadow-lg">
+                        <div>
+                            <div class="w-8 h-8 rounded-lg bg-[#0000CC] text-white flex items-center justify-center font-black text-sm mb-4">B</div>
+                            <h3 class="text-lg font-black uppercase mb-2 text-white">Келісім алу</h3>
+                            <p class="text-white/80 text-sm font-medium leading-relaxed">
+                                Кез келген адам туралы жазбас бұрын оның келісімін сұра — есімін, суретін, сөзін жариялауға рұқсат алу міндетті.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="group bg-gray-50 border-2 border-gray-200 text-[#111111] p-6 rounded-[24px] hover:border-[#0000CC] hover:bg-white hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between">
+                        <div>
+                            <div class="w-8 h-8 rounded-lg bg-[#111111] text-white flex items-center justify-center font-black text-sm mb-4">C</div>
+                            <h3 class="text-lg font-black uppercase mb-2 text-[#0000CC]">Күрделі тақырыптар</h3>
+                            <p class="text-gray-600 text-sm font-medium leading-relaxed">
+                                Дау-дамай, саясат немесе денсаулыққа қатысты күрделі тақырыптарды жалғыз қозғама — алдымен мұғалім немесе ата-анаңмен ақылдас.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="group bg-gray-50 border-2 border-gray-200 text-[#111111] p-6 rounded-[24px] hover:border-[#0000CC] hover:bg-white hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between">
+                        <div>
+                            <div class="w-8 h-8 rounded-lg bg-[#0000CC] text-white flex items-center justify-center font-black text-sm mb-4">D</div>
+                            <h3 class="text-lg font-black uppercase mb-2 text-[#0000CC]">Ересектер көмегі</h3>
+                            <p class="text-gray-600 text-sm font-medium leading-relaxed">
+                                Мақаланы жібермес бұрын оны бір ересек адамға (ата-ана, мұғалім) оқытып шық — бұл мәтініңді күшейтеді.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="group bg-[#B0FB26] text-[#111111] p-6 rounded-[24px] hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between shadow-lg">
+                        <div>
+                            <div class="w-8 h-8 rounded-lg bg-[#0000CC] text-white flex items-center justify-center font-black text-sm mb-4">E</div>
+                            <h3 class="text-lg font-black uppercase mb-2 text-[#0000CC]">Шындықты тексеру</h3>
+                            <p class="text-[#111111]/90 text-sm font-medium leading-relaxed">
+                                Әрдайым шындықты тексер: жай естіген сөзге сенбе, нақты дереккөзге сүйен.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- ARTICLE SUBMISSION FORM -->
     <section id="write-article" class="bg-gray-50 text-[#111111] py-16 sm:py-24 px-4 sm:px-6 border-t border-gray-200">
         <div class="max-w-3xl mx-auto">
             <div class="text-center mb-10 sm:mb-16">
@@ -241,13 +301,14 @@
                     </div>
                 </div>
 
-                <button type="submit" class="w-full bg-[#0000CC] text-white text-base sm:text-lg font-black uppercase tracking-wide py-3.5 sm:py-4 rounded-xl hover:bg-black transition-colors duration-300 mt-4 shadow-md">
-                    Мақаланы редакцияға жіберу 🚀
+                <button type="submit" id="artSubmitBtn" class="w-full bg-[#0000CC] text-white text-base sm:text-lg font-black uppercase tracking-wide py-3.5 sm:py-4 rounded-xl hover:bg-black transition-colors duration-300 mt-4 shadow-md flex justify-center items-center gap-2">
+                    <span>Мақаланы редакцияға жіберу 🚀</span>
                 </button>
             </form>
         </div>
     </section>
 
+    <!-- ANONYMOUS LETTERS BOX -->
     <section id="anonymous-zone" class="hero-grid py-16 sm:py-24 px-4 sm:px-6 relative">
         <div class="max-w-3xl mx-auto">
             <div class="text-center mb-10 sm:mb-12">
@@ -260,35 +321,30 @@
                 <div class="space-y-3">
                     <label class="block text-xs font-mono uppercase tracking-widest text-[#B0FB26]">Хаттың бағытын таңдаңыз:</label>
                     <div class="flex flex-col gap-2.5 sm:grid sm:grid-cols-2" id="categoryContainer">
-                        
                         <button type="button" onclick="selectCategory(this, 'Әке, мен ержеттім...')" class="category-btn w-full flex items-center space-x-3 text-left px-5 py-4 rounded-xl border-2 border-white/20 bg-white/5 font-bold hover:border-[#B0FB26] transition-all text-xs sm:text-sm text-white group">
                             <div class="w-5 h-5 flex-shrink-0 text-white group-hover:text-[#B0FB26] transition-colors">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                             </div>
                             <span>«Әке, мен ержеттім...»</span>
                         </button>
-                        
                         <button type="button" onclick="selectCategory(this, 'Анашым, сырласайықшы...')" class="category-btn w-full flex items-center space-x-3 text-left px-5 py-4 rounded-xl border-2 border-white/20 bg-white/5 font-bold hover:border-[#B0FB26] transition-all text-xs sm:text-sm text-white group">
                             <div class="w-5 h-5 flex-shrink-0 text-white group-hover:text-[#B0FB26] transition-colors">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                             </div>
                             <span>«Анашым, сырласайықшы...»</span>
                         </button>
-                        
                         <button type="button" onclick="selectCategory(this, 'Досым, тыңдашы...')" class="category-btn w-full flex items-center space-x-3 text-left px-5 py-4 rounded-xl border-2 border-white/20 bg-white/5 font-bold hover:border-[#B0FB26] transition-all text-xs sm:text-sm text-white group">
                             <div class="w-5 h-5 flex-shrink-0 text-white group-hover:text-[#B0FB26] transition-colors">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
                             </div>
                             <span>«Досым, тыңдашы...»</span>
                         </button>
-                        
                         <button type="button" onclick="selectCategory(this, 'Менікі басқа тақырып')" class="category-btn w-full flex items-center space-x-3 text-left px-5 py-4 rounded-xl border-2 border-white/20 bg-white/5 font-bold hover:border-[#B0FB26] transition-all text-xs sm:text-sm text-white group">
                             <div class="w-5 h-5 flex-shrink-0 text-white group-hover:text-[#B0FB26] transition-colors">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
                             </div>
                             <span>«Менікі басқа тақырып»</span>
                         </button>
-                        
                     </div>
                     <input type="hidden" id="selectedCategory" value="">
                 </div>
@@ -301,17 +357,18 @@
 
                     <div class="space-y-1.5">
                         <label class="block text-xs font-mono uppercase tracking-widest text-white/70">Қалауы бойынша толтыратын өріс: (Кері байланыс қажет болса: Аты-жөні, пошта немесе телефон)</label>
-                        <input type="text" id="anonContact" class="w-full bg-black/40 text-white px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-2 border-white/10 focus:border-[#B0FB26] focus:outline-none transition-colors font-medium text-sm sm:text-base placeholder-white/30" placeholder="Аты-жөнініз, поштаңыз немесе телефон нөміріңіз (міндетті емес)">
+                        <input type="text" id="anonContact" class="w-full bg-black/40 text-white px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-2 border-white/10 focus:border-[#B0FB26] focus:outline-none transition-colors font-medium text-sm sm:text-base placeholder-white/30" placeholder="Аты-жөніңіз, поштаңыз немесе телефон нөміріңіз (міндетті емес)">
                     </div>
 
-                    <button type="submit" class="w-full bg-[#B0FB26] text-[#111111] text-base sm:text-lg font-black uppercase tracking-wide py-3.5 sm:py-4 rounded-xl hover:bg-white transition-colors duration-300 shadow-md">
-                        Анонимді хатты жолдау 🔒
+                    <button type="submit" id="anonSubmitBtn" class="w-full bg-[#B0FB26] text-[#111111] text-base sm:text-lg font-black uppercase tracking-wide py-3.5 sm:py-4 rounded-xl hover:bg-white transition-colors duration-300 shadow-md flex justify-center items-center gap-2">
+                        <span>Анонимді хатты жолдау 🔒</span>
                     </button>
                 </form>
             </div>
         </div>
     </section>
 
+    <!-- ABOUT & HISTORY SECTION -->
     <section id="about" class="bg-white text-[#111111] py-16 sm:py-24 px-4 sm:px-6 rounded-b-[24px] sm:rounded-b-[48px] relative z-10">
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             <div class="lg:col-span-7 space-y-4 sm:space-y-6">
@@ -325,31 +382,201 @@
                 </div>
             </div>
 
+            <!-- Jaspia Reporter Card / Badge Widget -->
             <div class="lg:col-span-5 w-full">
                 <div class="bg-[#111111] text-white p-6 sm:p-8 rounded-[20px] sm:rounded-[24px] border-4 border-[#0000CC] shadow-2xl relative overflow-hidden">
                     <div class="absolute -right-8 -bottom-8 w-32 h-32 text-[#B0FB26]/10 pointer-events-none">
                         <svg viewBox="0 0 100 100" fill="currentColor"><circle cx="50" cy="50" r="50"/></svg>
                     </div>
-                    <div class="flex justify-between items-start mb-6 sm:mb-8">
+                    <div class="flex justify-between items-start mb-6">
                         <div>
-                            <h4 class="text-lg sm:text-xl font-black text-[#B0FB26] uppercase">«Жас тілші» куәлігін алу</h4>
+                            <h4 class="text-lg sm:text-xl font-black text-[#B0FB26] uppercase">«Жас тілші» куәлігі</h4>
                             <p class="text-[10px] sm:text-xs text-white/60 font-mono">СТАТУС: АШЫҚ</p>
                         </div>
                         <span class="text-[10px] sm:text-xs font-mono border border-white/20 px-2 py-1 rounded">ID: 2026-ULAN</span>
                     </div>
-                    <div class="space-y-4 mb-6">
+                    <div class="space-y-4">
                         <p class="text-xs sm:text-sm text-white/80 font-medium leading-relaxed">
                             Белсенді түрде хат жазып, мақаласы жарық көрген оқушыға ресми <strong class="text-[#B0FB26]">«Жас тілші» куәлігі</strong> және редакция атынан брендтік мерч жиынтығы беріледі!
                         </p>
                     </div>
-                    <button onclick="scrollToForm()" class="w-full bg-[#0000CC] text-white font-bold py-3 rounded-xl hover:bg-[#B0FB26] hover:text-[#111111] transition-colors text-xs sm:text-sm uppercase tracking-wider">
-                        Куәлік алуға өтініш搬ру
-                    </button>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- SECTION: EDITORIAL TEAM (БІЗДІҢ РЕДАКЦИЯ - БАРЛЫҚ ИКОНКА АППЛ СТИЛЬДІ ӘЙЕЛ / ЕРКЕК БОЛЫП ӨЗГЕРТІЛДІ) -->
+    <section id="editorial-team" class="bg-gray-900 text-white py-16 sm:py-24 px-4 sm:px-6 relative border-t border-white/10">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-12 sm:mb-16">
+                <span class="text-[#B0FB26] font-mono text-xs font-bold tracking-widest uppercase block mb-2">// ШЫҒАРМАШЫЛЫҚ ҰЖЫМ</span>
+                <h2 class="text-3xl sm:text-5xl font-black tracking-tight uppercase heading-tight">Біздің редакция</h2>
+                <p class="text-white/60 mt-3 text-sm sm:text-base max-w-xl">Газеттің әрбір санын сапалы әрі қызықты етіп шығару жолында еңбек етіп жүрген «Ұланның» негізгі жүрегі.</p>
+            </div>
+
+            <!-- Main Leadership Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                
+                <!-- Chief Editor (Әйел иконкасы) -->
+                <div class="glass-card p-6 rounded-[24px] hover:border-[#B0FB26] transition-all duration-300 flex flex-col justify-between group">
+                    <div class="flex items-start justify-between">
+                        <div class="space-y-3">
+                            <div class="w-10 h-10 rounded-xl bg-[#B0FB26] text-[#111111] flex items-center justify-center shadow-inner">
+                                <!-- Apple Style Female Icon -->
+                                <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 0 1 8 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 14s1.5-1.5 3-1.5 3 1.5 3 1.5" />
+                                </svg>
+                            </div>
+                            <p class="text-xs font-mono uppercase tracking-wider text-white/50">Бас редактор</p>
+                            <h3 class="text-xl font-extrabold text-white">Жадыра Нармаханова</h3>
+                        </div>
+                    </div>
+                    <a href="https://www.instagram.com/zhadyranarmakhanova/" target="_blank" class="mt-6 flex items-center space-x-2 text-xs font-mono font-bold text-[#B0FB26] hover:underline">
+                        <span>@zhadyranarmakhanova</span>
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                </div>
+
+                <!-- Deputy Editor (Еркек иконкасы) -->
+                <div class="glass-card p-6 rounded-[24px] hover:border-[#B0FB26] transition-all duration-300 flex flex-col justify-between group">
+                    <div class="flex items-start justify-between">
+                        <div class="space-y-3">
+                            <div class="w-10 h-10 rounded-xl bg-white/10 text-white flex items-center justify-center">
+                                <!-- Apple Style Male Icon -->
+                                <svg class="w-6 h-6 text-[#B0FB26]" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 0 1 8 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                            </div>
+                            <p class="text-xs font-mono uppercase tracking-wider text-white/50">Редактордың орынбасары</p>
+                            <h3 class="text-xl font-extrabold text-white">Асылан Тілеген</h3>
+                        </div>
+                    </div>
+                    <a href="https://www.instagram.com/aslantilegenov/" target="_blank" class="mt-6 flex items-center space-x-2 text-xs font-mono font-bold text-[#B0FB26] hover:underline">
+                        <span>@aslantilegenov</span>
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                </div>
+
+                <!-- Artist-Designer (Әйел иконкасы) -->
+                <div class="glass-card p-6 rounded-[24px] hover:border-[#0000CC] transition-all duration-300 flex flex-col justify-between bg-[#0000CC]/20 border-[#0000CC]/30">
+                    <div class="flex items-start justify-between">
+                        <div class="space-y-3">
+                            <div class="w-10 h-10 rounded-xl bg-[#0000CC] text-white flex items-center justify-center">
+                                <!-- Apple Style Female Icon -->
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 0 1 8 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 14s1.5-1.5 3-1.5 3 1.5 3 1.5" />
+                                </svg>
+                            </div>
+                            <p class="text-xs font-mono uppercase tracking-wider text-white/50">Көркемдеуші-дизайнер</p>
+                            <h3 class="text-xl font-extrabold text-white">Дәрия Талапова</h3>
+                        </div>
+                    </div>
+                    <p class="mt-6 text-xs font-medium text-white/80 border-t border-white/10 pt-3 flex items-center gap-2">
+                        <svg class="w-4 h-4 text-[#B0FB26] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        <span>Апайға тек қана қағазға хат жазып, поштамен жолдау керек 📮</span>
+                    </p>
+                </div>
+
+                <!-- Responsible Secretary (Әйел иконкасы) -->
+                <div class="glass-card p-6 rounded-[24px] hover:border-[#B0FB26] transition-all duration-300 flex flex-col justify-between group">
+                    <div class="flex items-start justify-between">
+                        <div class="space-y-3">
+                            <div class="w-10 h-10 rounded-xl bg-white/10 text-white flex items-center justify-center">
+                                <!-- Apple Style Female Icon -->
+                                <svg class="w-6 h-6 text-[#B0FB26]" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 0 1 8 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 14s1.5-1.5 3-1.5 3 1.5 3 1.5" />
+                                </svg>
+                            </div>
+                            <p class="text-xs font-mono uppercase tracking-wider text-white/50">Жауапты хатшы</p>
+                            <h3 class="text-xl font-extrabold text-white">Гүлфарида Зейнуллина</h3>
+                        </div>
+                    </div>
+                    <a href="https://www.instagram.com/gulfarida.zeinullina/" target="_blank" class="mt-6 flex items-center space-x-2 text-xs font-mono font-bold text-[#B0FB26] hover:underline">
+                        <span>@gulfarida.zeinullina</span>
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Reporters Subsection -->
+            <div class="mt-16 mb-8 border-b border-white/10 pb-4">
+                <h3 class="text-xl sm:text-2xl font-black uppercase tracking-wider text-[#B0FB26]">Газеттің тілшілері</h3>
+            </div>
+
+            <!-- Reporters Cards Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Reporter 1: Олжас Павлик (Еркек иконкасы) -->
+                <div class="glass-card p-5 rounded-[20px] hover:bg-white/10 transition-all duration-300 flex flex-col justify-between group">
+                    <div class="space-y-3">
+                        <div class="w-8 h-8 rounded-lg bg-white/5 text-[#B0FB26] flex items-center justify-center">
+                            <svg class="w-5 h-5 text-[#B0FB26]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 0 1 8 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-bold text-white">Олжас Павлик</h4>
+                    </div>
+                    <a href="https://www.instagram.com/olzhaspavlik?igsh=MXV5eGd4c250ZWN5OA%3D%3D" target="_blank" class="mt-4 flex items-center space-x-1.5 text-xs font-mono text-[#B0FB26] hover:underline">
+                        <span>@olzhaspavlik</span>
+                    </a>
+                </div>
+
+                <!-- Reporter 2: Жазира Бекболат (Әйел иконкасы) -->
+                <div class="glass-card p-5 rounded-[20px] hover:bg-white/10 transition-all duration-300 flex flex-col justify-between group">
+                    <div class="space-y-3">
+                        <div class="w-8 h-8 rounded-lg bg-white/5 text-[#B0FB26] flex items-center justify-center">
+                            <svg class="w-5 h-5 text-[#B0FB26]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 0 1 8 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 14s1.5-1.5 3-1.5 3 1.5 3 1.5" />
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-bold text-white">Жазира Бекболат</h4>
+                    </div>
+                    <a href="https://www.instagram.com/zhazonia?igsh=MXB5OWlsdXR3Yjd0aw%3D%3D" target="_blank" class="mt-4 flex items-center space-x-1.5 text-xs font-mono text-[#B0FB26] hover:underline">
+                        <span>@zhazonia</span>
+                    </a>
+                </div>
+
+                <!-- Reporter 3: Дильназ Шаймұратова (Әйел иконкасы) -->
+                <div class="glass-card p-5 rounded-[20px] hover:bg-white/10 transition-all duration-300 flex flex-col justify-between group">
+                    <div class="space-y-3">
+                        <div class="w-8 h-8 rounded-lg bg-white/5 text-[#B0FB26] flex items-center justify-center">
+                            <svg class="w-5 h-5 text-[#B0FB26]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 0 1 8 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 14s1.5-1.5 3-1.5 3 1.5 3 1.5" />
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-bold text-white">Дильназ Шаймұратова</h4>
+                    </div>
+                    <a href="https://www.instagram.com/sbdilnaz?igsh=eGRncXBnZjFndmdl" target="_blank" class="mt-4 flex items-center space-x-1.5 text-xs font-mono text-[#B0FB26] hover:underline">
+                        <span>@sbdilnaz</span>
+                    </a>
+                </div>
+
+                <!-- Reporter 4: Нұрлыхан Жұмахан (Еркек иконкасы) -->
+                <div class="glass-card p-5 rounded-[20px] hover:bg-white/10 transition-all duration-300 flex flex-col justify-between group">
+                    <div class="space-y-3">
+                        <div class="w-8 h-8 rounded-lg bg-white/5 text-[#B0FB26] flex items-center justify-center">
+                            <svg class="w-5 h-5 text-[#B0FB26]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 0 1 8 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-bold text-white">Нұрлыхан Жұмахан</h4>
+                    </div>
+                    <a href="https://www.instagram.com/nwrlykhvn/" target="_blank" class="mt-4 flex items-center space-x-1.5 text-xs font-mono text-[#B0FB26] hover:underline">
+                        <span>@nwrlykhvn</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
     <footer class="bg-[#111111] text-white/60 text-xs sm:text-sm py-10 sm:py-12 px-4 sm:px-6 border-t border-white/10">
         <div class="max-w-7xl mx-auto space-y-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-6">
@@ -374,14 +601,15 @@
         </div>
     </footer>
 
+    <!-- SUCCESS MODAL DIALOG -->
     <div id="successModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
         <div class="glass-card bg-[#111111] max-w-md w-full p-6 sm:p-8 rounded-[20px] sm:rounded-[24px] text-center border-2 border-[#B0FB26] transform scale-95 transition-transform duration-300 space-y-4 sm:space-y-6">
-            <div class="w-12 h-12 sm:w-16 sm:h-16 bg-[#B0FB26] text-[#111111] rounded-full flex items-center justify-center mx-auto text-2xl sm:text-3xl font-bold animate-bounce">
+            <div id="modalIcon" class="w-12 h-12 sm:w-16 sm:h-16 bg-[#B0FB26] text-[#111111] rounded-full flex items-center justify-center mx-auto text-2xl sm:text-3xl font-bold animate-bounce">
                 ✓
             </div>
             <h3 class="text-2xl sm:text-3xl font-black uppercase text-white tracking-tight" id="modalTitle">Поштаға дайындалды!</h3>
             <p class="text-xs sm:text-sm text-white/80 font-medium leading-relaxed" id="modalDescription">
-                Сіздің хатыңыз мәтін ретінде өңделді.
+                Сіздің хатыңыз базаға сәтті жолданды.
             </p>
             <button onclick="closeModal()" class="w-full bg-white text-[#111111] font-extrabold py-3 rounded-xl hover:bg-[#B0FB26] transition-colors text-sm">
                 Жақсы, түсінікті!
@@ -389,8 +617,10 @@
         </div>
     </div>
 
+    <!-- JAVASCRIPT CONTROLS -->
     <script>
-        // Anonymous category selection dynamic styling
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyszX31oYQw8EIGcnntcQNSbxzcerA28Qz53kywnVCqsiQ1jyU02-e5t2tlPT2KpCty/exec";
+
         function selectCategory(button, val) {
             document.querySelectorAll('.category-btn').forEach(btn => {
                 btn.classList.remove('border-[#B0FB26]', 'bg-[#B0FB26]/10', 'text-[#B0FB26]');
@@ -401,71 +631,80 @@
             document.getElementById('selectedCategory').value = val;
         }
 
-        // Send Email integration via mailto link generation
-        function triggerMailGo(subject, bodyText) {
-            const encodedSubject = encodeURIComponent(subject);
-            const encodedBody = encodeURIComponent(bodyText);
-            window.location.href = `mailto:ulangazeti@gmail.com?subject=${encodedSubject}&body=${encodedBody}`;
+        async function sendDataToBackend(payload, submitBtn) {
+            const originalBtnContent = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<span>Жіберіліп жатыр... ⏳</span>`;
+            
+            try {
+                await fetch(WEB_APP_URL, {
+                    method: "POST",
+                    mode: "no-cors", 
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                openModal('Сәтті жіберілді! 🚀', 'Сіздің материалыңыз «Ұлан» газетінің ресми поштасына автоматты түрде жолданды!');
+                return true;
+            } catch (error) {
+                console.error("Error:", error);
+                openModal('Қате орын алды! ❌', 'Техникалық ақаулыққа байланысты хат кетпеді. ionurlykhans@gmail.com поштасына хабарласыңыз.');
+                return false;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnContent;
+            }
         }
 
-        // Form submission triggers
-        document.getElementById('articleForm').addEventListener('submit', function(e) {
+        document.getElementById('articleForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const title = document.getElementById('artTitle').value;
-            const lead = document.getElementById('artLead').value;
-            const body = document.getElementById('artBody').value;
-            const author = document.getElementById('artAuthor').value;
-            const phone = document.getElementById('artPhone').value;
-            const address = document.getElementById('artAddress').value;
-            const school = document.getElementById('artSchool').value;
+            const submitBtn = document.getElementById('artSubmitBtn');
+            const payload = {
+                type: 'article',
+                title: document.getElementById('artTitle').value,
+                lead: document.getElementById('artLead').value,
+                body: document.getElementById('artBody').value,
+                author: document.getElementById('artAuthor').value,
+                phone: document.getElementById('artPhone').value,
+                address: document.getElementById('artAddress').value,
+                school: document.getElementById('artSchool').value
+            };
 
-            const emailText = `--- ЖАҢА МАҚАЛА ҚАБЫЛДАНДЫ ---\n\n` +
-                              `ТАҚЫРЫБЫ: ${title}\n` +
-                              `ҚЫСҚАША БАЯНДАУ (АНОНС, ЛИД): ${lead}\n\n` +
-                              `ТОЛЫҚ МӘТІНІ:\n${body}\n\n` +
-                              `---------------------------------------\n` +
-                              `АВТОРЫ: ${author}\n` +
-                              `WHATSAPP НӨМІРІ: ${phone}\n` +
-                              `МЕКЕНЖАЙЫ: ${address}\n` +
-                              `МЕКТЕБІ МЕН СЫНЫБЫ: ${school}\n`;
-
-            openModal('Поштаға дайындалды! 🚀', 'Сіздің мақалаңыз мәтін ретінде сәтті өңделді. Қазір пошта қолданбасы ашылады, "Жіберу" (Send) батырмасын басуды ұмытпаңыз.');
-            
-            setTimeout(() => {
-                triggerMailGo(`Платформадан хат келді`, emailText);
-            }, 1800);
-
-            this.reset();
+            const success = await sendDataToBackend(payload, submitBtn);
+            if (success) this.reset();
         });
 
-        document.getElementById('anonymousForm').addEventListener('submit', function(e) {
+        document.getElementById('anonymousForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            const category = document.getElementById('selectedCategory').value || "Қалыпты анонимді хат";
-            const text = document.getElementById('anonText').value;
-            const contact = document.getElementById('anonContact').value || "Көрсетілмеген (Толық анонимді)";
-            
-            const emailText = `--- АНОНИМДІ ХАТ ҚАБЫЛДАНДЫ ---\n\n` +
-                              `АЙДАРЫ: ${category}\n\n` +
-                              `ХАТ МӘТІНІ:\n${text}\n\n` +
-                              `---------------------------------------\n` +
-                              `KЕРІ БАЙЛАНЫС ДЕРЕГІ (ҚАЛАУЫ БОЙЫНША): ${contact}\n`;
 
-            openModal('Құпия хат дайындалды! 🔒', 'Сіздің анонимді хатыңыз дайын болды. Пошта қолданбасы ашылғанда "Жіберу" батырмасын басыңыз.');
-            
-            setTimeout(() => {
-                triggerMailGo(`Платформадан хат келді`, emailText);
-            }, 1800);
+            const category = document.getElementById('selectedCategory').value;
+            if (!category) {
+                openModal('Айдар таңдалмады! ⚠️', 'Өтініш, алдымен хаттың бағытын (айдарды) таңдаңыз.');
+                return;
+            }
 
-            this.reset();
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.classList.remove('border-[#B0FB26]', 'bg-[#B0FB26]/10', 'text-[#B0FB26]');
-                btn.classList.add('border-white/20', 'bg-white/5', 'text-white');
-            });
-            document.getElementById('selectedCategory').value = '';
+            const submitBtn = document.getElementById('anonSubmitBtn');
+            const payload = {
+                type: 'anonymous',
+                category: category,
+                text: document.getElementById('anonText').value,
+                contact: document.getElementById('anonContact').value || "Қалдырылмаған (Толық анонимді)"
+            };
+
+            const success = await sendDataToBackend(payload, submitBtn);
+            if (success) {
+                this.reset();
+                document.querySelectorAll('.category-btn').forEach(btn => {
+                    btn.classList.remove('border-[#B0FB26]', 'bg-[#B0FB26]/10', 'text-[#B0FB26]');
+                    btn.classList.add('border-white/20', 'bg-white/5', 'text-white');
+                });
+                document.getElementById('selectedCategory').value = '';
+            }
         });
 
-        // Modal mechanism
         function openModal(title, desc) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalDescription').innerText = desc;
