@@ -10,56 +10,33 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Climate+Crisis&family=Inter:wght@400;600;700;800;950&display=swap" rel="stylesheet">
-    
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
             background-color: #111111;
             color: #FFFFFF;
         }
-
-        /* Climate Crisis Font for Logo */
-        .logo-climate {
-            font-family: 'Climate Crisis', sans-serif;
-        }
-
-        /* Custom Technical Grid for Hero Section */
+        .logo-climate { font-family: 'Climate Crisis', sans-serif; }
         .hero-grid {
             background-color: #0000CC;
-            background-image: 
+            background-image:
                 linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
             background-size: 24px 24px;
         }
-
-        /* Glassmorphism Styling */
         .glass-card {
             background: rgba(255, 255, 255, 0.07);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.15);
         }
-
-        /* Tight tracking for bold headers */
-        .heading-tight {
-            letter-spacing: -0.04em;
-            line-height: 0.95;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #111111;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #0000CC;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #B0FB26;
-        }
+        .heading-tight { letter-spacing: -0.04em; line-height: 0.95; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #111111; }
+        ::-webkit-scrollbar-thumb { background: #0000CC; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #B0FB26; }
+        .news-body { white-space: pre-wrap; }
     </style>
 </head>
 <body class="antialiased overflow-x-hidden" id="body">
@@ -67,7 +44,6 @@
     <!-- NAVIGATION -->
     <nav class="fixed top-0 left-0 w-full z-50 glass-card border-t-0 border-x-0 px-4 sm:px-6 py-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <!-- Google Fonts Climate Crisis мәтіндік логотипі (Ірі, анық әрі заманауи) -->
             <div class="flex items-center space-x-4">
                 <a href="#body" class="block select-none">
                     <span class="logo-climate text-3xl sm:text-4xl md:text-5xl uppercase tracking-wider text-white hover:text-[#B0FB26] transition-colors duration-300 drop-shadow-[0_2px_8px_rgba(255,255,255,0.2)]">Ulan</span>
@@ -75,7 +51,7 @@
                 <span class="text-[10px] sm:text-xs text-[#B0FB26] font-mono tracking-widest hidden sm:inline pt-2">EST. 1930</span>
             </div>
             <div class="flex items-center space-x-3 sm:space-x-6 text-xs sm:text-sm font-semibold">
-                <a href="https://ulan.kazgazeta.kz/" target="_blank" class="text-white/80 hover:text-[#B0FB26] transition-colors">Ресми сайт</a>
+                <a href="#news" class="text-white/80 hover:text-[#B0FB26] transition-colors">Жаңалықтар</a>
                 <a href="#about" class="text-white/80 hover:text-[#B0FB26] transition-colors hidden sm:inline">Тарихы</a>
                 <a href="#editorial-team" class="text-white/80 hover:text-[#B0FB26] transition-colors hidden md:inline">Редакция</a>
                 <a href="#write-article" class="bg-[#B0FB26] text-[#111111] px-4 py-2.5 rounded-full font-bold hover:scale-105 transition-transform text-xs sm:text-sm shadow-md">Хат жазу</a>
@@ -140,6 +116,25 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- ============ ЖАҢАЛЫҚТАР ЛЕНТАСЫ ============ -->
+    <section id="news" class="bg-[#111111] py-16 sm:py-24 px-4 sm:px-6 border-b border-white/10">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-12 gap-4">
+                <div>
+                    <span class="text-[#B0FB26] font-mono text-xs font-bold tracking-widest uppercase block mb-2">// АҚПАРАТТЫҚ ЛЕНТА</span>
+                    <h2 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight uppercase heading-tight text-white">Соңғы жаңалықтар</h2>
+                </div>
+                <p class="text-white/60 max-w-md text-sm sm:text-base font-medium">
+                    «Ұлан» редакциясының күнделікті жаңалықтары, хабарландырулары мен оқиғалары.
+                </p>
+            </div>
+
+            <div id="newsLoading" class="text-center text-white/40 py-12 font-mono text-sm">Жаңалықтар жүктелуде... ⏳</div>
+            <div id="newsEmpty" class="hidden text-center text-white/40 py-12 font-mono text-sm border-2 border-dashed border-white/10 rounded-3xl">Әзірге жаңалық жоқ. Жуырда толтырылады!</div>
+            <div id="newsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"></div>
         </div>
     </section>
 
@@ -245,7 +240,7 @@
                     <div class="group bg-[#B0FB26] text-[#111111] p-6 rounded-[24px] hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between shadow-lg">
                         <div>
                             <div class="w-8 h-8 rounded-lg bg-[#0000CC] text-white flex items-center justify-center font-black text-sm mb-4">E</div>
-                            <h3 class="text-lg font-black uppercase mb-2 text-[#0000CC]">Шындыққты тексеру</h3>
+                            <h3 class="text-lg font-black uppercase mb-2 text-[#0000CC]">Шындықты тексеру</h3>
                             <p class="text-[#111111]/90 text-sm font-medium leading-relaxed">
                                 Әрдайым шындықты тексер: жай естіген сөзге сенбе, нақты дереккөзге сүйен.
                             </p>
@@ -368,6 +363,10 @@
                     <button type="submit" id="anonSubmitBtn" class="w-full bg-[#B0FB26] text-[#111111] text-base sm:text-lg font-black uppercase tracking-wide py-3.5 sm:py-4 rounded-xl hover:bg-white transition-colors duration-300 shadow-md flex justify-center items-center gap-2">
                         <span>Анонимді хатты жолдау 🔒</span>
                     </button>
+
+                    <p class="text-center text-[11px] sm:text-xs text-white/60 font-medium pt-1">
+                        🆘 Егер қиын жағдайда болсаң, Қазақстандағы тегін балалар сенім телефонына қоңырау шал: <a href="tel:111" class="text-[#B0FB26] font-bold underline">111</a>
+                    </p>
                 </form>
             </div>
         </div>
@@ -387,7 +386,6 @@
                 </div>
             </div>
 
-            <!-- Jaspia Reporter Card / Badge Widget -->
             <div class="lg:col-span-5 w-full">
                 <div class="bg-[#111111] text-white p-6 sm:p-8 rounded-[20px] sm:rounded-[24px] border-4 border-[#0000CC] shadow-2xl relative overflow-hidden">
                     <div class="absolute -right-8 -bottom-8 w-32 h-32 text-[#B0FB26]/10 pointer-events-none">
@@ -419,10 +417,8 @@
                 <p class="text-white/60 mt-3 text-sm sm:text-base max-w-xl">Газеттің әрбір санын сапалы әрі қызықты етіп шығару жолында еңбек етіп жүрген «Ұланның» негізгі жүрегі.</p>
             </div>
 
-            <!-- Main Leadership Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                
-                <!-- Chief Editor (Әйел иконкасы) -->
+
                 <div class="glass-card p-6 rounded-[24px] hover:border-[#B0FB26] transition-all duration-300 flex flex-col justify-between group">
                     <div class="flex items-start justify-between">
                         <div class="space-y-3">
@@ -442,7 +438,6 @@
                     </a>
                 </div>
 
-                <!-- Deputy Editor (Еркек иконкасы) -->
                 <div class="glass-card p-6 rounded-[24px] hover:border-[#B0FB26] transition-all duration-300 flex flex-col justify-between group">
                     <div class="flex items-start justify-between">
                         <div class="space-y-3">
@@ -461,7 +456,6 @@
                     </a>
                 </div>
 
-                <!-- Artist-Designer (Әйел иконкасы) -->
                 <div class="glass-card p-6 rounded-[24px] hover:border-[#0000CC] transition-all duration-300 flex flex-col justify-between bg-[#0000CC]/20 border-[#0000CC]/30">
                     <div class="flex items-start justify-between">
                         <div class="space-y-3">
@@ -481,7 +475,6 @@
                     </p>
                 </div>
 
-                <!-- Responsible Secretary (Әйел иконкасы) -->
                 <div class="glass-card p-6 rounded-[24px] hover:border-[#B0FB26] transition-all duration-300 flex flex-col justify-between group">
                     <div class="flex items-start justify-between">
                         <div class="space-y-3">
@@ -503,15 +496,12 @@
 
             </div>
 
-            <!-- Reporters Subsection -->
             <div class="mt-16 mb-8 border-b border-white/10 pb-4">
                 <h3 class="text-xl sm:text-2xl font-black uppercase tracking-wider text-[#B0FB26]">Газеттің тілшілері</h3>
             </div>
 
-            <!-- Reporters Cards Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                
-                <!-- Reporter 1: Олжас Павлик (Еркек иконкасы) -->
+
                 <div class="glass-card p-5 rounded-[20px] hover:bg-white/10 transition-all duration-300 flex flex-col justify-between group">
                     <div class="space-y-3">
                         <div class="w-8 h-8 rounded-lg bg-white/5 text-[#B0FB26] flex items-center justify-center">
@@ -526,7 +516,6 @@
                     </a>
                 </div>
 
-                <!-- Reporter 2: Жазира Бекболат (Әйел иконкасы) -->
                 <div class="glass-card p-5 rounded-[20px] hover:bg-white/10 transition-all duration-300 flex flex-col justify-between group">
                     <div class="space-y-3">
                         <div class="w-8 h-8 rounded-lg bg-white/5 text-[#B0FB26] flex items-center justify-center">
@@ -542,7 +531,6 @@
                     </a>
                 </div>
 
-                <!-- Reporter 3: Дильназ Шаймұратова (Әйел иконкасы) -->
                 <div class="glass-card p-5 rounded-[20px] hover:bg-white/10 transition-all duration-300 flex flex-col justify-between group">
                     <div class="space-y-3">
                         <div class="w-8 h-8 rounded-lg bg-white/5 text-[#B0FB26] flex items-center justify-center">
@@ -558,7 +546,6 @@
                     </a>
                 </div>
 
-                <!-- Reporter 4: Нұрлыхан Жұмахан (Еркек иконкасы) -->
                 <div class="glass-card p-5 rounded-[20px] hover:bg-white/10 transition-all duration-300 flex flex-col justify-between group">
                     <div class="space-y-3">
                         <div class="w-8 h-8 rounded-lg bg-white/5 text-[#B0FB26] flex items-center justify-center">
@@ -591,19 +578,22 @@
                     <a href="https://chat.whatsapp.com/G9BJlwIbUFTHWYECcEBPCY" target="_blank" class="hover:text-[#B0FB26] transition-colors text-[#B0FB26]">WhatsApp: «Ұлан House»</a>
                 </div>
             </div>
-            
+
             <hr class="border-white/10">
-            
+
             <div class="text-center text-xs space-y-2 text-white/40">
                 <p class="font-medium">
                     Техникалық қате болса: <a href="mailto:ionurlykhans@gmail.com" class="text-white/60 hover:text-[#B0FB26] underline">ionurlykhans@gmail.com</a> поштасына хат жаз. Нұрлыхан көкелерің әрқашан мәселені шешуге көмектеседі. Instagram: <a href="https://instagram.com/nwrlykhvn" target="_blank" class="hover:text-[#B0FB26]">@nwrlykhvn</a>
+                </p>
+                <p class="pt-2">
+                    <button onclick="openAdmin()" class="text-white/30 hover:text-[#B0FB26] transition-colors font-mono text-[11px] uppercase tracking-widest">· Редакция кабинеті ·</button>
                 </p>
             </div>
         </div>
     </footer>
 
     <!-- SUCCESS MODAL DIALOG -->
-    <div id="successModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+    <div id="successModal" class="fixed inset-0 bg-black/80 z-[60] flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
         <div class="glass-card bg-[#111111] max-w-md w-full p-6 sm:p-8 rounded-[20px] sm:rounded-[24px] text-center border-2 border-[#B0FB26] transform scale-95 transition-transform duration-300 space-y-4 sm:space-y-6">
             <div id="modalIcon" class="w-12 h-12 sm:w-16 sm:h-16 bg-[#B0FB26] text-[#111111] rounded-full flex items-center justify-center mx-auto text-2xl sm:text-3xl font-bold animate-bounce">
                 ✓
@@ -618,10 +608,77 @@
         </div>
     </div>
 
+    <!-- ============ ӘКІМШІ КАБИНЕТІ (МОДАЛ) ============ -->
+    <div id="adminModal" class="fixed inset-0 bg-black/85 z-[70] flex items-start justify-center p-4 hidden opacity-0 transition-opacity duration-300 overflow-y-auto">
+        <div class="glass-card bg-[#111111] max-w-2xl w-full my-8 p-5 sm:p-8 rounded-[24px] border-2 border-white/15 space-y-6">
+
+            <div class="flex justify-between items-center">
+                <h3 class="text-xl sm:text-2xl font-black uppercase text-[#B0FB26] tracking-tight">Редакция кабинеті</h3>
+                <button onclick="closeAdmin()" class="w-9 h-9 rounded-full bg-white/10 text-white hover:bg-white/20 flex items-center justify-center text-lg">✕</button>
+            </div>
+
+            <!-- LOGIN VIEW -->
+            <div id="adminLoginView" class="space-y-4">
+                <p class="text-white/60 text-sm">Жаңалық жариялау үшін логин мен құпиясөзіңізді енгізіңіз.</p>
+                <div class="space-y-1.5">
+                    <label class="block text-xs font-mono uppercase tracking-widest text-white/70">Логин</label>
+                    <input type="text" id="adminLogin" class="w-full bg-black/40 text-white px-4 py-3 rounded-xl border-2 border-white/10 focus:border-[#B0FB26] focus:outline-none font-medium" placeholder="мысалы: nurlykhan">
+                </div>
+                <div class="space-y-1.5">
+                    <label class="block text-xs font-mono uppercase tracking-widest text-white/70">Құпиясөз</label>
+                    <input type="password" id="adminPass" class="w-full bg-black/40 text-white px-4 py-3 rounded-xl border-2 border-white/10 focus:border-[#B0FB26] focus:outline-none font-medium" placeholder="••••••••">
+                </div>
+                <p id="adminLoginError" class="text-red-400 text-sm font-medium hidden">Логин не құпиясөз қате.</p>
+                <button id="adminLoginBtn" onclick="adminLogin()" class="w-full bg-[#B0FB26] text-[#111111] font-black uppercase tracking-wide py-3.5 rounded-xl hover:bg-white transition-colors">Кіру</button>
+            </div>
+
+            <!-- DASHBOARD VIEW -->
+            <div id="adminDashView" class="space-y-8 hidden">
+                <div class="flex items-center justify-between bg-white/5 rounded-2xl px-4 py-3 border border-white/10">
+                    <p class="text-sm text-white/80">Сәлеметсіз бе, <span id="adminName" class="text-[#B0FB26] font-bold"></span> 👋</p>
+                    <button onclick="adminLogout()" class="text-xs font-mono text-white/50 hover:text-red-400 underline">Шығу</button>
+                </div>
+
+                <!-- NEW NEWS FORM -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-black uppercase text-white">Жаңа жаңалық қосу</h4>
+                    <div class="space-y-1.5">
+                        <label class="block text-xs font-mono uppercase tracking-widest text-white/70">Тақырып *</label>
+                        <input type="text" id="newsTitle" class="w-full bg-black/40 text-white px-4 py-3 rounded-xl border-2 border-white/10 focus:border-[#B0FB26] focus:outline-none font-medium" placeholder="Жаңалықтың тақырыбы">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="block text-xs font-mono uppercase tracking-widest text-white/70">Мәтін *</label>
+                        <textarea id="newsBody" rows="5" class="w-full bg-black/40 text-white px-4 py-3 rounded-xl border-2 border-white/10 focus:border-[#B0FB26] focus:outline-none font-medium" placeholder="Жаңалықтың толық мәтіні..."></textarea>
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="block text-xs font-mono uppercase tracking-widest text-white/70">Иллюстрация / сурет (міндетті емес)</label>
+                        <input type="file" id="newsImage" accept="image/*" onchange="previewNewsImage()" class="w-full text-sm text-white/70 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:bg-[#0000CC] file:text-white file:font-bold file:cursor-pointer hover:file:bg-[#0000CC]/80">
+                        <div id="newsImagePreview" class="hidden mt-3">
+                            <img id="newsImagePreviewImg" class="w-full max-h-48 object-cover rounded-xl border border-white/10" alt="алдын ала қарау">
+                        </div>
+                    </div>
+                    <button id="newsPublishBtn" onclick="publishNews()" class="w-full bg-[#B0FB26] text-[#111111] font-black uppercase tracking-wide py-3.5 rounded-xl hover:bg-white transition-colors flex justify-center items-center gap-2">
+                        Жариялау 📢
+                    </button>
+                    <p id="newsPublishMsg" class="text-center text-sm font-medium hidden"></p>
+                </div>
+
+                <!-- EXISTING NEWS LIST -->
+                <div class="space-y-3 border-t border-white/10 pt-6">
+                    <h4 class="text-lg font-black uppercase text-white">Жарияланған жаңалықтар</h4>
+                    <div id="adminNewsList" class="space-y-2"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <!-- JAVASCRIPT CONTROLS -->
     <script>
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyszX31oYQw8EIGcnntcQNSbxzcerA28Qz53kywnVCqsiQ1jyU02-e5t2tlPT2KpCty/exec";
+        // === Apps Script деплой URL (POST + JSONP осы URL-ді қолданады) ===
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwc9i-gkR5GVDkgI9tADOGuEBQ4W7ZBGLavFhF9z_EQl5aIqFDQyF6BLVmyCU-aodZ0/exec";
 
+        // ====================== АНОНИМДІ ФОРМА ======================
         function selectCategory(button, val) {
             document.querySelectorAll('.category-btn').forEach(btn => {
                 btn.classList.remove('border-[#B0FB26]', 'bg-[#B0FB26]/10', 'text-[#B0FB26]');
@@ -636,17 +693,13 @@
             const originalBtnContent = submitBtn.innerHTML;
             submitBtn.disabled = true;
             submitBtn.innerHTML = `<span>Жіберіліп жатыр... ⏳</span>`;
-            
             try {
                 await fetch(WEB_APP_URL, {
                     method: "POST",
-                    mode: "no-cors", 
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload)
                 });
-                
                 openModal('Сәтті жіберілді! 🚀', 'Сіздің материалыңыз «Ұлан» газетінің ресми поштасына автоматты түрде жолданды!');
                 return true;
             } catch (error) {
@@ -661,7 +714,6 @@
 
         document.getElementById('articleForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
             const submitBtn = document.getElementById('artSubmitBtn');
             const payload = {
                 type: 'article',
@@ -673,20 +725,17 @@
                 address: document.getElementById('artAddress').value,
                 school: document.getElementById('artSchool').value
             };
-
             const success = await sendDataToBackend(payload, submitBtn);
             if (success) this.reset();
         });
 
         document.getElementById('anonymousForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-
             const category = document.getElementById('selectedCategory').value;
             if (!category) {
                 openModal('Айдар таңдалмады! ⚠️', 'Өтініш, алдымен хаттың бағытын (айдарды) таңдаңыз.');
                 return;
             }
-
             const submitBtn = document.getElementById('anonSubmitBtn');
             const payload = {
                 type: 'anonymous',
@@ -694,7 +743,6 @@
                 text: document.getElementById('anonText').value,
                 contact: document.getElementById('anonContact').value || "Қалдырылмаған (Толық анонимді)"
             };
-
             const success = await sendDataToBackend(payload, submitBtn);
             if (success) {
                 this.reset();
@@ -709,7 +757,6 @@
         function openModal(title, desc) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalDescription').innerText = desc;
-            
             const modal = document.getElementById('successModal');
             modal.classList.remove('hidden');
             setTimeout(() => {
@@ -717,19 +764,269 @@
                 modal.querySelector('div').classList.remove('scale-95');
             }, 50);
         }
-
         function closeModal() {
             const modal = document.getElementById('successModal');
             modal.classList.add('opacity-0');
             modal.querySelector('div').classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
         }
 
-        function scrollToForm() {
-            document.getElementById('write-article').scrollIntoView({ behavior: 'smooth' });
+        // ====================== JSONP КӨМЕКШІСІ ======================
+        function jsonp(params) {
+            return new Promise((resolve, reject) => {
+                const cb = 'cb_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
+                const s = document.createElement('script');
+                const timer = setTimeout(() => { cleanup(); reject(new Error('timeout')); }, 20000);
+                function cleanup() {
+                    clearTimeout(timer);
+                    delete window[cb];
+                    if (s.parentNode) s.parentNode.removeChild(s);
+                }
+                window[cb] = function(data) { cleanup(); resolve(data); };
+                const q = Object.keys(params)
+                    .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+                    .join('&');
+                s.src = WEB_APP_URL + '?' + q + '&callback=' + cb;
+                s.onerror = function() { cleanup(); reject(new Error('network')); };
+                document.body.appendChild(s);
+            });
         }
+
+        // ====================== ЖАҢАЛЫҚТАР ЛЕНТАСЫ ======================
+        function escapeHtml(str) {
+            return String(str || '')
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+
+        function formatKkDate(iso) {
+            try {
+                const months = ['қаңтар','ақпан','наурыз','сәуір','мамыр','маусым','шілде','тамыз','қыркүйек','қазан','қараша','желтоқсан'];
+                const d = new Date(iso);
+                if (isNaN(d)) return '';
+                return d.getDate() + ' ' + months[d.getMonth()] + ', ' + d.getFullYear();
+            } catch (e) { return ''; }
+        }
+
+        async function loadNews() {
+            const loading = document.getElementById('newsLoading');
+            const empty = document.getElementById('newsEmpty');
+            const grid = document.getElementById('newsGrid');
+            try {
+                const res = await jsonp({ action: 'getNews' });
+                const news = (res && res.news) ? res.news : [];
+                loading.classList.add('hidden');
+                renderNews(news);
+                renderAdminNewsList(news);
+                empty.classList.toggle('hidden', news.length > 0);
+            } catch (e) {
+                loading.textContent = 'Жаңалықтарды жүктеу мүмкін болмады. Бетті жаңартып көріңіз.';
+            }
+        }
+
+        function renderNews(news) {
+            const grid = document.getElementById('newsGrid');
+            grid.innerHTML = '';
+            news.forEach(item => {
+                const card = document.createElement('article');
+                card.className = 'glass-card rounded-[24px] overflow-hidden flex flex-col hover:border-[#B0FB26] transition-all duration-300 group';
+                const img = item.imageUrl
+                    ? `<div class="aspect-video bg-black/40 overflow-hidden">
+                           <img src="${escapeHtml(item.imageUrl)}" alt="${escapeHtml(item.title)}" loading="lazy"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                onerror="this.parentNode.style.display='none'">
+                       </div>` : '';
+                card.innerHTML = `
+                    ${img}
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="flex items-center gap-2 text-[10px] font-mono text-white/40 mb-3 uppercase tracking-wider">
+                            <span class="text-[#B0FB26]">●</span>
+                            <span>${escapeHtml(formatKkDate(item.date))}</span>
+                            <span>·</span>
+                            <span>${escapeHtml(item.author)}</span>
+                        </div>
+                        <h3 class="text-lg font-black text-white mb-2 leading-snug">${escapeHtml(item.title)}</h3>
+                        <p class="news-body text-sm text-white/70 leading-relaxed flex-grow">${escapeHtml(item.body)}</p>
+                    </div>`;
+                grid.appendChild(card);
+            });
+        }
+
+        // ====================== ӘКІМШІ ======================
+        let currentAdmin = null; // { login, pass, name }
+
+        function openAdmin() {
+            const m = document.getElementById('adminModal');
+            m.classList.remove('hidden');
+            setTimeout(() => m.classList.remove('opacity-0'), 50);
+            // егер кіріп қойған болса — бірден dashboard
+            document.getElementById('adminLoginView').classList.toggle('hidden', !!currentAdmin);
+            document.getElementById('adminDashView').classList.toggle('hidden', !currentAdmin);
+        }
+        function closeAdmin() {
+            const m = document.getElementById('adminModal');
+            m.classList.add('opacity-0');
+            setTimeout(() => m.classList.add('hidden'), 300);
+        }
+
+        async function adminLogin() {
+            const login = document.getElementById('adminLogin').value.trim();
+            const pass = document.getElementById('adminPass').value;
+            const errEl = document.getElementById('adminLoginError');
+            const btn = document.getElementById('adminLoginBtn');
+            errEl.classList.add('hidden');
+            if (!login || !pass) { errEl.textContent = 'Логин мен құпиясөзді толтырыңыз.'; errEl.classList.remove('hidden'); return; }
+            btn.disabled = true; btn.textContent = 'Тексерілуде... ⏳';
+            try {
+                const res = await jsonp({ action: 'checkAdmin', login, pass });
+                if (res && res.ok) {
+                    currentAdmin = { login, pass, name: res.name };
+                    document.getElementById('adminName').textContent = res.name;
+                    document.getElementById('adminLoginView').classList.add('hidden');
+                    document.getElementById('adminDashView').classList.remove('hidden');
+                    document.getElementById('adminPass').value = '';
+                    loadNews();
+                } else {
+                    errEl.textContent = 'Логин не құпиясөз қате.';
+                    errEl.classList.remove('hidden');
+                }
+            } catch (e) {
+                errEl.textContent = 'Желі қатесі. Қайта көріңіз.';
+                errEl.classList.remove('hidden');
+            } finally {
+                btn.disabled = false; btn.textContent = 'Кіру';
+            }
+        }
+
+        function adminLogout() {
+            currentAdmin = null;
+            document.getElementById('adminDashView').classList.add('hidden');
+            document.getElementById('adminLoginView').classList.remove('hidden');
+        }
+
+        // суретті алдын ала көрсету
+        function previewNewsImage() {
+            const file = document.getElementById('newsImage').files[0];
+            const wrap = document.getElementById('newsImagePreview');
+            const img = document.getElementById('newsImagePreviewImg');
+            if (!file) { wrap.classList.add('hidden'); return; }
+            img.src = URL.createObjectURL(file);
+            wrap.classList.remove('hidden');
+        }
+
+        // суретті браузерде қысу (тез жүктелуі үшін, макс ені 1280px)
+        function compressImage(file, maxW = 1280, quality = 0.85) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                const url = URL.createObjectURL(file);
+                img.onload = function() {
+                    const scale = Math.min(1, maxW / img.width);
+                    const w = Math.round(img.width * scale);
+                    const h = Math.round(img.height * scale);
+                    const canvas = document.createElement('canvas');
+                    canvas.width = w; canvas.height = h;
+                    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                    const dataUrl = canvas.toDataURL('image/jpeg', quality);
+                    URL.revokeObjectURL(url);
+                    resolve({ base64: dataUrl.split(',')[1], mime: 'image/jpeg', name: (file.name || 'news') + '.jpg' });
+                };
+                img.onerror = function() { resolve(null); };
+                img.src = url;
+            });
+        }
+
+        async function publishNews() {
+            if (!currentAdmin) return;
+            const title = document.getElementById('newsTitle').value.trim();
+            const body = document.getElementById('newsBody').value.trim();
+            const fileInput = document.getElementById('newsImage');
+            const msg = document.getElementById('newsPublishMsg');
+            const btn = document.getElementById('newsPublishBtn');
+
+            if (!title || !body) {
+                msg.textContent = 'Тақырып пен мәтінді толтырыңыз.';
+                msg.className = 'text-center text-sm font-medium text-red-400';
+                msg.classList.remove('hidden');
+                return;
+            }
+
+            btn.disabled = true; btn.textContent = 'Жарияланып жатыр... ⏳';
+            msg.classList.add('hidden');
+
+            let imgData = { base64: '', mime: '', name: '' };
+            if (fileInput.files[0]) {
+                const c = await compressImage(fileInput.files[0]);
+                if (c) imgData = c;
+            }
+
+            const payload = {
+                type: 'news',
+                login: currentAdmin.login,
+                pass: currentAdmin.pass,
+                title, body,
+                image: imgData.base64,
+                imageMime: imgData.mime,
+                imageName: imgData.name
+            };
+
+            try {
+                await fetch(WEB_APP_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+                msg.textContent = 'Жарияланды! Лента жаңартылуда... ✅';
+                msg.className = 'text-center text-sm font-medium text-[#B0FB26]';
+                msg.classList.remove('hidden');
+                // тазалау
+                document.getElementById('newsTitle').value = '';
+                document.getElementById('newsBody').value = '';
+                fileInput.value = '';
+                document.getElementById('newsImagePreview').classList.add('hidden');
+                // backend жазып үлгеруі үшін кідіріс
+                setTimeout(loadNews, 3000);
+            } catch (e) {
+                msg.textContent = 'Қате орын алды. Қайта көріңіз.';
+                msg.className = 'text-center text-sm font-medium text-red-400';
+                msg.classList.remove('hidden');
+            } finally {
+                btn.disabled = false; btn.textContent = 'Жариялау 📢';
+            }
+        }
+
+        function renderAdminNewsList(news) {
+            const wrap = document.getElementById('adminNewsList');
+            if (!wrap) return;
+            if (!news.length) { wrap.innerHTML = '<p class="text-white/40 text-sm font-mono">Жаңалық жоқ.</p>'; return; }
+            wrap.innerHTML = '';
+            news.forEach(item => {
+                const row = document.createElement('div');
+                row.className = 'flex items-center justify-between gap-3 bg-white/5 rounded-xl px-4 py-2.5 border border-white/10';
+                row.innerHTML = `
+                    <div class="min-w-0">
+                        <p class="text-sm text-white font-semibold truncate">${escapeHtml(item.title)}</p>
+                        <p class="text-[10px] font-mono text-white/40">${escapeHtml(formatKkDate(item.date))} · ${escapeHtml(item.author)}</p>
+                    </div>
+                    <button onclick="deleteNews('${escapeHtml(item.id)}')" class="flex-shrink-0 text-xs font-bold text-red-400 hover:text-red-300 border border-red-400/30 rounded-lg px-3 py-1.5 hover:bg-red-400/10 transition-colors">Өшіру</button>`;
+                wrap.appendChild(row);
+            });
+        }
+
+        async function deleteNews(id) {
+            if (!currentAdmin) return;
+            if (!confirm('Бұл жаңалықты өшіруге сенімдісіз бе?')) return;
+            try {
+                const res = await jsonp({ action: 'deleteNews', login: currentAdmin.login, pass: currentAdmin.pass, id });
+                if (res && res.ok) {
+                    loadNews();
+                } else {
+                    alert('Өшіру мүмкін болмады.');
+                }
+            } catch (e) {
+                alert('Желі қатесі.');
+            }
+        }
+
+        // === БАСТАПҚЫ ЖҮКТЕУ ===
+        document.addEventListener('DOMContentLoaded', loadNews);
+        // #admin хэшімен де кабинетті ашуға болады
+        if (location.hash === '#admin') openAdmin();
     </script>
 </body>
 </html>
