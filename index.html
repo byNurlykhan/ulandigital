@@ -767,6 +767,20 @@
                     <h4 class="text-lg font-black uppercase text-white">Жарияланған жаңалықтар</h4>
                     <div id="adminNewsList" class="space-y-2"></div>
                 </div>
+
+                <!-- СТАТИСТИКА -->
+                <div class="space-y-3 border-t border-white/10 pt-6">
+                    <h4 class="text-lg font-black uppercase text-white">Кіру статистикасы</h4>
+                    <div id="statsToday"></div>
+                    <div id="statsChart" class="space-y-1.5 pt-2"></div>
+                </div>
+
+                <!-- ӨЗГЕРІСТЕР ЖУРНАЛЫ -->
+                <div class="space-y-3 border-t border-white/10 pt-6">
+                    <h4 class="text-lg font-black uppercase text-white">Өзгерістер журналы</h4>
+                    <p class="text-[11px] text-white/40">Кім қашан жаңалық қосты, өңдеді немесе өшірді.</p>
+                    <div id="logList" class="space-y-1.5 max-h-72 overflow-y-auto pr-1"></div>
+                </div>
             </div>
 
         </div>
@@ -870,6 +884,94 @@
             setTimeout(() => { modal.classList.add('hidden'); }, 300);
         }
 
+        // === Кіру есебін жіберу (cookie жоқ, тек күндік санақ) ===
+        function pingVisit() {
+            try {
+                const today = new Date().toISOString().slice(0, 10);
+                let unique = false;
+                try {
+                    if (localStorage.getItem('ulan_visit_day') !== today) {
+                        unique = true;
+                        localStorage.setItem('ulan_visit_day', today);
+                    }
+                } catch (e) { unique = false; }
+                fetch(WEB_APP_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ type: 'visit', unique: unique }) });
+            } catch (e) {}
+        }
+
+        // === Кабинеттегі статистика мен журналды жүктеу ===
+        async function loadAdminExtras() {
+            if (!currentAdmin) return;
+            try {
+                const res = await jsonp({ action: 'getStats', login: currentAdmin.login, pass: currentAdmin.pass });
+                if (res && res.ok) renderStats(res.stats || []);
+            } catch (e) {}
+            try {
+                const res = await jsonp({ action: 'getLog', login: currentAdmin.login, pass: currentAdmin.pass });
+                if (res && res.ok) renderLog(res.log || []);
+            } catch (e) {}
+        }
+
+        function renderStats(stats) {
+            const todayEl = document.getElementById('statsToday');
+            const chartEl = document.getElementById('statsChart');
+            if (!todayEl || !chartEl) return;
+            const todayStr = new Date().toISOString().slice(0, 10);
+            const todayRow = stats.find(s => s.date === todayStr) || { views: 0, uniques: 0 };
+            todayEl.innerHTML = `
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
+                        <div class="text-3xl font-black text-[#B0FB26]">${todayRow.uniques}</div>
+                        <div class="text-[11px] text-white/50 mt-1 uppercase tracking-wide">Бүгін кірген (бірегей)</div>
+                    </div>
+                    <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
+                        <div class="text-3xl font-black text-white">${todayRow.views}</div>
+                        <div class="text-[11px] text-white/50 mt-1 uppercase tracking-wide">Бүгінгі қаралым</div>
+                    </div>
+                </div>`;
+            const last = stats.slice(-14);
+            if (!last.length) { chartEl.innerHTML = '<p class="text-white/40 text-sm">Әзірге дерек жоқ.</p>'; return; }
+            const max = Math.max(1, ...last.map(s => s.views));
+            chartEl.innerHTML = '<p class="text-[11px] font-mono text-white/40 uppercase tracking-widest mb-2">Соңғы 14 күн (қаралым)</p>' +
+                last.map(s => {
+                    const pct = Math.round((s.views / max) * 100);
+                    const d = s.date.slice(8, 10) + '.' + s.date.slice(5, 7);
+                    return `<div class="flex items-center gap-3 text-xs">
+                        <span class="w-10 font-mono text-white/40 flex-shrink-0">${d}</span>
+                        <div class="flex-grow bg-white/5 rounded-full h-2.5 overflow-hidden">
+                            <div class="h-full bg-[#B0FB26] rounded-full" style="width:${pct}%"></div>
+                        </div>
+                        <span class="w-10 text-right font-bold text-white/80 flex-shrink-0">${s.views}</span>
+                    </div>`;
+                }).join('');
+        }
+
+        function formatLogTime(iso) {
+            try {
+                const d = new Date(iso);
+                if (isNaN(d)) return '';
+                const p = n => String(n).padStart(2, '0');
+                return p(d.getDate()) + '.' + p(d.getMonth() + 1) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+            } catch (e) { return ''; }
+        }
+
+        function renderLog(log) {
+            const el = document.getElementById('logList');
+            if (!el) return;
+            if (!log.length) { el.innerHTML = '<p class="text-white/40 text-sm font-mono">Журнал бос.</p>'; return; }
+            const colors = { 'Қосты': 'text-[#B0FB26]', 'Өңдеді': 'text-blue-300', 'Өшірді': 'text-red-400' };
+            el.innerHTML = log.map(e => {
+                const t = formatLogTime(e.time);
+                const c = colors[e.action] || 'text-white/70';
+                return `<div class="flex items-center gap-2 text-xs bg-white/5 rounded-lg px-3 py-2 border border-white/10">
+                    <span class="font-mono text-white/40 whitespace-nowrap">${t}</span>
+                    <span class="font-bold text-white whitespace-nowrap">${escapeHtml(e.admin)}</span>
+                    <span class="${c} font-bold whitespace-nowrap">${escapeHtml(e.action)}</span>
+                    <span class="text-white/60 truncate flex-grow">${escapeHtml(e.detail)}</span>
+                </div>`;
+            }).join('');
+        }
+
         // ====================== JSONP КӨМЕКШІСІ ======================
         function jsonp(params) {
             return new Promise((resolve, reject) => {
@@ -918,6 +1020,7 @@
                 loading.classList.add('hidden');
                 renderNews(news);
                 renderAdminNewsList(news);
+                if (currentAdmin) loadAdminExtras();
                 empty.classList.toggle('hidden', news.length > 0);
             } catch (e) {
                 loading.textContent = 'Жаңалықтарды жүктеу мүмкін болмады. Бетті жаңартып көріңіз.';
@@ -1030,6 +1133,7 @@
             // егер кіріп қойған болса — бірден dashboard
             document.getElementById('adminLoginView').classList.toggle('hidden', !!currentAdmin);
             document.getElementById('adminDashView').classList.toggle('hidden', !currentAdmin);
+            if (currentAdmin) loadAdminExtras();
         }
         function closeAdmin() {
             const m = document.getElementById('adminModal');
@@ -1272,7 +1376,7 @@
         }
 
         // === БАСТАПҚЫ ЖҮКТЕУ ===
-        document.addEventListener('DOMContentLoaded', loadNews);
+        document.addEventListener('DOMContentLoaded', function() { loadNews(); pingVisit(); });
         // #admin хэшімен де кабинетті ашуға болады
         if (location.hash === '#admin') openAdmin();
     </script>
