@@ -167,7 +167,7 @@
                     </div>
                     <div class="p-3 sm:p-4 bg-[#111111]/60 rounded-2xl border border-white/10 flex items-center space-x-3">
                         <div class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500 flex-shrink-0 animate-pulse"></div>
-                        <p class="text-xs sm:text-sm text-white/90">Қазір платформада <span class="font-bold text-[#B0FB26]"><span id="liveCount">142</span> оқушы</span> хат жазып жатыр...</p>
+                        <p class="text-xs sm:text-sm text-white/90">Бүгін платформаға <span class="font-bold text-[#B0FB26]"><span id="liveCount">—</span> оқырман</span> кірді</p>
                     </div>
 
                     <a href="https://ulan.kazgazeta.kz/subscribe" target="_blank" rel="noopener"
@@ -385,6 +385,7 @@
                 <span class="text-[#0000CC] font-mono text-xs font-bold tracking-widest uppercase block mb-2">// ОНЛАЙН СЕРТИФИКАТ</span>
                 <h2 class="text-3xl sm:text-5xl font-black tracking-tight uppercase">Сертификатыңды ал!</h2>
                 <p class="text-gray-600 mt-3 text-sm sm:text-base max-w-2xl mx-auto font-medium">«Ұланның» медиа мектебінің бес дағдысын оқып шықтың ба? Аты-жөніңді жаз да, «Журналистің бес дағдысын біледі» сертификатын PDF не сурет етіп жүктеп ал.</p>
+                <p class="mt-4 inline-flex items-center gap-2 bg-[#0000CC]/10 text-[#0000CC] font-black text-sm px-5 py-2.5 rounded-full">🏅 Бүгінге дейін сертификатты <span id="certCountPublic">—</span> адам жүктеп алды</p>
             </div>
 
             <div class="grid lg:grid-cols-5 gap-8 items-start">
@@ -947,6 +948,13 @@
                     </div>
                 </div>
 
+                <!-- СЕРТИФИКАТ АЛҒАНДАР -->
+                <div class="space-y-3 border-t border-white/10 pt-6">
+                    <h4 class="text-lg font-black uppercase text-white">Сертификат алғандар</h4>
+                    <p class="text-[11px] text-white/40">Медиа мектеп сертификатын кім, қашан жүктегені. Барлығы: <span id="certTotalAdmin" class="text-[#B0FB26] font-black">0</span></p>
+                    <div id="certList" class="space-y-1.5 max-h-72 overflow-y-auto pr-1"></div>
+                </div>
+
                 <!-- СТАТИСТИКА -->
                 <div class="space-y-3 border-t border-white/10 pt-6">
                     <h4 class="text-lg font-black uppercase text-white">Кіру статистикасы</h4>
@@ -1072,12 +1080,30 @@
         }
 
         // «Қазір N оқушы хат жазып жатыр» — санды 7-68 аралығында ауыстырып тұру
-        function startLiveCounter() {
-            const el = document.getElementById('liveCount');
-            if (!el) return;
-            const rnd = () => Math.floor(Math.random() * (68 - 7 + 1)) + 7;
-            el.textContent = rnd();
-            setInterval(() => { el.textContent = rnd(); }, 3000);
+        // === ШЫНАЙЫ АШЫҚ СТАТИСТИКА (бүгінгі оқырман, сертификат саны, жаңалық оқылымы) ===
+        let publicStats = { visitsToday: 0, visitsTotal: 0, certCount: 0, newsViews: {} };
+
+        function newsViewsOf(id) {
+            return Number((publicStats.newsViews || {})[String(id)] || 0);
+        }
+
+        async function loadPublicStats() {
+            try {
+                const res = await jsonp({ action: 'getPublicStats' });
+                if (res && res.ok && res.stats) {
+                    publicStats = Object.assign(publicStats, res.stats);
+                    applyPublicStats();
+                }
+            } catch (e) {}
+        }
+
+        function applyPublicStats() {
+            const lc = document.getElementById('liveCount');
+            if (lc) lc.textContent = publicStats.visitsToday || 0;
+            const cc = document.getElementById('certCountPublic');
+            if (cc) cc.textContent = publicStats.certCount || 0;
+            // Жаңалық карточкаларындағы 👁 сандарын жаңарту
+            if (Array.isArray(allNews) && allNews.length) renderNews(allNews);
         }
 
         // === Кіру есебін жіберу (cookie жоқ, тек күндік санақ) ===
@@ -1106,6 +1132,33 @@
                 const res = await jsonp({ action: 'getLog', login: currentAdmin.login, pass: currentAdmin.pass });
                 if (res && res.ok) renderLog(res.log || []);
             } catch (e) {}
+            try {
+                const res = await jsonp({ action: 'getCerts', login: currentAdmin.login, pass: currentAdmin.pass });
+                if (res && res.ok) renderCerts(res.certs || []);
+            } catch (e) {}
+        }
+
+        function renderCerts(certs) {
+            const wrap = document.getElementById('certList');
+            const total = document.getElementById('certTotalAdmin');
+            if (!wrap) return;
+            if (total) total.textContent = certs.length;
+            if (!certs.length) {
+                wrap.innerHTML = '<p class="text-white/40 text-sm font-mono">Әзірге ешкім сертификат жүктемеген.</p>';
+                return;
+            }
+            wrap.innerHTML = '';
+            certs.slice().reverse().forEach(function (c) {
+                const row = document.createElement('div');
+                row.className = 'flex items-center justify-between gap-3 bg-white/5 rounded-xl px-4 py-2 border border-white/10';
+                row.innerHTML = `
+                    <div class="min-w-0">
+                        <p class="text-sm text-white font-semibold truncate">${escapeHtml(c.name || '—')}</p>
+                        <p class="text-[10px] font-mono text-white/40">${escapeHtml(c.date || '')}${c.certId ? ' · ' + escapeHtml(c.certId) : ''}</p>
+                    </div>
+                    <span class="flex-shrink-0 text-lg">🏅</span>`;
+                wrap.appendChild(row);
+            });
         }
 
         function renderStats(stats) {
@@ -1331,12 +1384,24 @@
         }
 
         function saveCertClaim(name) {
+            const certId = certIdFor('MS', name);
             try {
                 localStorage.setItem('ulan_cert_claim', JSON.stringify({
                     name: name,
                     date: certToday(),
-                    id: certIdFor('MS', name)
+                    id: certId
                 }));
+            } catch (e) {}
+            // Серверге тіркейміз: кім, қашан, қай нөмірмен алды
+            try {
+                fetch(WEB_APP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify({ type: 'cert', name: name, certId: certId })
+                });
+                publicStats.certCount = (publicStats.certCount || 0) + 1;
+                const cc = document.getElementById('certCountPublic');
+                if (cc) cc.textContent = publicStats.certCount;
             } catch (e) {}
             applyCertLock();
         }
@@ -1885,6 +1950,8 @@
                         <span>${escapeHtml(formatKkDate(item.date))}</span>
                         <span>·</span>
                         <span>${escapeHtml(item.author)}</span>
+                        <span>·</span>
+                        <span title="Оқылым саны">👁 ${newsViewsOf(item.id)}</span>
                     </div>`;
 
                 const rubricBadge = item.rubric
@@ -1945,10 +2012,31 @@
             }
         }
 
+        // === Жаңалық оқылымын тіркеу (бір құрылғы = бір мақала = күніне 1 рет) ===
+        function pingNewsView(id) {
+            try {
+                const key = 'ulan_news_seen';
+                const today = new Date().toISOString().slice(0, 10);
+                let seen = {};
+                try { seen = JSON.parse(localStorage.getItem(key) || '{}'); } catch (e) {}
+                if (seen[String(id)] === today) return; // бүгін оқып қойған
+                seen[String(id)] = today;
+                try { localStorage.setItem(key, JSON.stringify(seen)); } catch (e) {}
+                if (!publicStats.newsViews) publicStats.newsViews = {};
+                publicStats.newsViews[String(id)] = newsViewsOf(id) + 1;
+                fetch(WEB_APP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify({ type: 'newsView', id: String(id) })
+                });
+            } catch (e) {}
+        }
+
         // Жаңалықты толық оқу терезесі
         function openNewsDetail(id) {
             const item = allNews.find(n => String(n.id) === String(id));
             if (!item) return;
+            pingNewsView(id);
             const m = document.getElementById('newsDetailModal');
             const img = document.getElementById('newsDetailImageWrap');
             if (item.imageUrl) {
@@ -1960,7 +2048,7 @@
                 document.getElementById('newsDetailCloseTop').classList.remove('hidden');
             }
             document.getElementById('newsDetailMeta').textContent =
-                formatKkDate(item.date) + ' · ' + (item.author || '');
+                formatKkDate(item.date) + ' · ' + (item.author || '') + ' · 👁 ' + newsViewsOf(id);
             const rb = document.getElementById('newsDetailRubric');
             if (item.rubric) { rb.textContent = item.rubric; rb.classList.remove('hidden'); }
             else { rb.classList.add('hidden'); }
@@ -2211,7 +2299,7 @@
                 row.innerHTML = `
                     <div class="min-w-0">
                         <p class="text-sm text-white font-semibold truncate">${escapeHtml(item.title)}</p>
-                        <p class="text-[10px] font-mono text-white/40">${escapeHtml(formatKkDate(item.date))} · ${escapeHtml(item.author)}</p>
+                        <p class="text-[10px] font-mono text-white/40">${escapeHtml(formatKkDate(item.date))} · ${escapeHtml(item.author)} · 👁 ${newsViewsOf(item.id)}</p>
                     </div>
                     <div class="flex-shrink-0 flex items-center gap-2">
                         <button onclick="startEditNews('${escapeHtml(item.id)}')" class="text-xs font-bold text-[#B0FB26] hover:text-white border border-[#B0FB26]/30 rounded-lg px-3 py-1.5 hover:bg-[#B0FB26]/10 transition-colors">Өңдеу</button>
@@ -2237,7 +2325,7 @@
         }
 
         // === БАСТАПҚЫ ЖҮКТЕУ ===
-        document.addEventListener('DOMContentLoaded', function() { loadNews(); pingVisit(); startLiveCounter(); initCertificate(); loadBestReporter(); });
+        document.addEventListener('DOMContentLoaded', function() { loadNews(); pingVisit(); loadPublicStats(); initCertificate(); loadBestReporter(); });
         // #admin хэшімен де кабинетті ашуға болады
         if (location.hash === '#admin') openAdmin();
     </script>
