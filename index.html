@@ -807,6 +807,10 @@
                 <span id="newsDetailRubric" class="hidden mb-4 inline-block bg-[#B0FB26] text-[#111111] text-[11px] font-black uppercase tracking-[0.14em] px-3 py-1 rounded-full"></span>
                 <h3 id="newsDetailTitle" class="text-2xl sm:text-4xl font-black text-white mb-5 leading-[1.1] heading-tight"></h3>
                 <p id="newsDetailBody" class="news-body text-sm sm:text-base text-white/80 leading-relaxed"></p>
+                <div class="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-3">
+                    <button onclick="shareNews()" class="flex-1 bg-[#B0FB26] text-[#111111] font-extrabold py-3 rounded-xl hover:bg-white transition-colors text-sm">📤 Бөлісу</button>
+                    <button onclick="copyNewsLink(this)" class="flex-1 bg-white/10 text-white font-extrabold py-3 rounded-xl hover:bg-white/20 transition-colors text-sm">🔗 Сілтемені көшіру</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1945,6 +1949,7 @@
                 renderAdminNewsList(news);
                 if (currentAdmin) loadAdminExtras();
                 empty.classList.toggle('hidden', news.length > 0);
+                openNewsFromHash(); // сілтемеде #news-ID болса, сол мақаланы ашамыз
             } catch (e) {
                 loading.textContent = 'Жаңалықтарды жүктеу мүмкін болмады. Бетті жаңартып көріңіз.';
             }
@@ -2056,9 +2061,18 @@
         }
 
         // Жаңалықты толық оқу терезесі
+        let currentNewsId = null;
+
+        function newsLinkFor(id) {
+            return location.origin + location.pathname + '#news-' + encodeURIComponent(String(id));
+        }
+
         function openNewsDetail(id) {
             const item = allNews.find(n => String(n.id) === String(id));
             if (!item) return;
+            currentNewsId = String(id);
+            // Мекенжай жолағына мақаланың жеке сілтемесін жазамыз
+            try { history.replaceState(null, '', '#news-' + encodeURIComponent(String(id))); } catch (e) {}
             pingNewsView(id);
             const m = document.getElementById('newsDetailModal');
             const img = document.getElementById('newsDetailImageWrap');
@@ -2086,7 +2100,62 @@
             m.classList.add('opacity-0');
             document.body.style.overflow = '';
             setTimeout(() => m.classList.add('hidden'), 300);
+            currentNewsId = null;
+            try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
         }
+
+        // === МАҚАЛАМЕН БӨЛІСУ ===
+        function shareNews() {
+            if (!currentNewsId) return;
+            const item = allNews.find(n => String(n.id) === currentNewsId);
+            const url = newsLinkFor(currentNewsId);
+            const title = (item && item.title) ? item.title : '«Ұлан» жаңалығы';
+            if (navigator.share) {
+                navigator.share({ title: title, text: title + ' — «Ұлан»', url: url }).catch(function () {});
+            } else {
+                copyTextToClipboard(url);
+                alert('Сілтеме көшірілді! Енді мессенджерге жапсыра беріңіз:\n' + url);
+            }
+        }
+
+        function copyNewsLink(btn) {
+            if (!currentNewsId) return;
+            copyTextToClipboard(newsLinkFor(currentNewsId));
+            if (btn) {
+                const old = btn.textContent;
+                btn.textContent = '✅ Көшірілді!';
+                setTimeout(function () { btn.textContent = old; }, 2000);
+            }
+        }
+
+        function copyTextToClipboard(text) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).catch(function () { copyFallback_(text); });
+            } else {
+                copyFallback_(text);
+            }
+        }
+
+        function copyFallback_(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); } catch (e) {}
+            document.body.removeChild(ta);
+        }
+
+        // Сілтемеде #news-ID тұрса — сол мақаланы бірден ашамыз
+        function openNewsFromHash() {
+            const h = location.hash || '';
+            if (h.indexOf('#news-') !== 0) return;
+            let id = '';
+            try { id = decodeURIComponent(h.slice(6)); } catch (e) { id = h.slice(6); }
+            if (id && allNews.some(n => String(n.id) === String(id))) openNewsDetail(id);
+        }
+        window.addEventListener('hashchange', openNewsFromHash);
 
         // ====================== ӘКІМШІ ======================
         let currentAdmin = null; // { login, pass, name }
