@@ -53,6 +53,38 @@
         ::-webkit-scrollbar-thumb { background: #0000CC; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #B0FB26; }
         .news-body { white-space: pre-wrap; }
+        /* === Мақала ішіндегі бай форматтау === */
+        .news-rich { white-space: normal; }
+        .news-rich .news-lead {
+            font-size: 1.18em; font-weight: 800; color: rgba(255,255,255,.96);
+            line-height: 1.55; border-left: 4px solid #B0FB26;
+            padding-left: 1rem; margin-bottom: 1.4rem;
+        }
+        .news-rich .news-sub {
+            display: block; font-size: 1.3em; font-weight: 900; color: #fff;
+            margin: 1.9rem 0 .8rem; line-height: 1.2; position: relative;
+            padding-left: .95rem; letter-spacing: -0.01em;
+        }
+        .news-rich .news-sub::before {
+            content: ''; position: absolute; left: 0; top: .12em; bottom: .12em;
+            width: 4px; border-radius: 2px; background: #B0FB26;
+        }
+        .news-rich .news-p { margin-bottom: 1.05rem; }
+        .news-rich strong { color: #fff; font-weight: 800; }
+        .news-rich .news-img {
+            width: 100%; border-radius: 16px; margin: 1.4rem 0;
+            border: 1px solid rgba(255,255,255,.1);
+        }
+        .news-rich .news-img-cap {
+            font-size: .78rem; color: rgba(255,255,255,.45);
+            margin: -0.9rem 0 1.4rem; font-style: italic;
+        }
+        .news-rich .news-video {
+            position: relative; width: 100%; aspect-ratio: 16/9;
+            margin: 1.4rem 0; border-radius: 16px; overflow: hidden;
+            border: 1px solid rgba(255,255,255,.1); background: #000;
+        }
+        .news-rich .news-video iframe { width: 100%; height: 100%; border: 0; }
 
         /* ===== Жаңалықтар бөлімінің визуалы ===== */
         #news {
@@ -806,7 +838,7 @@
                 </div>
                 <span id="newsDetailRubric" class="hidden mb-4 inline-block bg-[#B0FB26] text-[#111111] text-[11px] font-black uppercase tracking-[0.14em] px-3 py-1 rounded-full"></span>
                 <h3 id="newsDetailTitle" class="text-2xl sm:text-4xl font-black text-white mb-5 leading-[1.1] heading-tight"></h3>
-                <p id="newsDetailBody" class="news-body text-sm sm:text-base text-white/80 leading-relaxed"></p>
+                <div id="newsDetailBody" class="news-body text-sm sm:text-base text-white/80 leading-relaxed"></div>
                 <div class="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-3">
                     <button onclick="shareNews()" class="flex-1 bg-[#B0FB26] text-[#111111] font-extrabold py-3 rounded-xl hover:bg-white transition-colors text-sm">📤 Бөлісу</button>
                     <button onclick="copyNewsLink(this)" class="flex-1 bg-white/10 text-white font-extrabold py-3 rounded-xl hover:bg-white/20 transition-colors text-sm">🔗 Сілтемені көшіру</button>
@@ -897,6 +929,15 @@
                     <div class="space-y-1.5">
                         <label class="block text-xs font-mono uppercase tracking-widest text-white/70">Мәтін *</label>
                         <textarea id="newsBody" rows="5" class="w-full bg-black/40 text-white px-4 py-3 rounded-xl border-2 border-white/10 focus:border-[#B0FB26] focus:outline-none font-medium" placeholder="Жаңалықтың толық мәтіні..."></textarea>
+                        <div class="mt-2 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-[11px] text-white/50 leading-relaxed space-y-0.5">
+                            <p class="text-white/70 font-bold uppercase tracking-wider text-[10px] mb-1">✍️ Форматтау белгілері:</p>
+                            <p>• Бірінші абзац автоматты түрде <span class="text-[#B0FB26]">ЛИД</span> болып ірі, қалың шығады</p>
+                            <p>• <code class="text-[#B0FB26]">## Тақырыпша</code> — ішкі тақырыпша (жеке жолда)</p>
+                            <p>• <code class="text-[#B0FB26]">**мәтін**</code> — қалың мәтін</p>
+                            <p>• <code class="text-[#B0FB26]">[сурет: сілтеме]</code> немесе <code class="text-[#B0FB26]">[сурет: сілтеме | астындағы жазба]</code></p>
+                            <p>• <code class="text-[#B0FB26]">[видео: YouTube-сілтеме]</code> — бейне ендіру</p>
+                            <p class="text-white/35 pt-1">Абзацтарды бос жолмен бөліңіз. Белгілер карточкада көрінбейді, тек толық мақалада безендіріледі.</p>
+                        </div>
                     </div>
                     <div class="space-y-1.5">
                         <label class="block text-xs font-mono uppercase tracking-widest text-white/70">Иллюстрация / сурет (міндетті емес)</label>
@@ -1927,6 +1968,84 @@
                 .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
         }
 
+        // ============ МАҚАЛА ФОРМАТТАУ ҚОЗҒАЛТҚЫШЫ ============
+        // Белгілер: бірінші абзац = ЛИД (автоматты), ## Тақырыпша,
+        // **қалың мәтін**, [сурет: URL] немесе [сурет: URL | жазба], [видео: YouTube-сілтеме]
+
+        function directImageUrl(url) {
+            // Google Drive сілтемесін тікелей көрсетілетін суретке айналдырамыз
+            const m = String(url).match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?id=)([A-Za-z0-9_-]{10,})/);
+            if (m) return 'https://drive.google.com/thumbnail?id=' + m[1] + '&sz=w1200';
+            return url;
+        }
+
+        function youtubeId(url) {
+            const m = String(url).match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{6,20})/);
+            return m ? m[1] : '';
+        }
+
+        function inlineFormat(escaped) {
+            return escaped.replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>');
+        }
+
+        function renderNewsBody(text) {
+            const blocks = String(text || '').replace(/\r\n/g, '\n').split(/\n{2,}/);
+            let html = '';
+            let leadDone = false;
+            blocks.forEach(function (block) {
+                const t = block.trim();
+                if (!t) return;
+                // [сурет: URL] немесе [сурет: URL | астындағы жазба]
+                let m = t.match(/^\[\s*(?:сурет|фото|img)\s*:\s*(\S+?)(?:\s*\|\s*(.+?))?\s*\]$/i);
+                if (m) {
+                    html += '<img class="news-img" src="' + escapeHtml(directImageUrl(m[1])) + '" alt="" loading="lazy">';
+                    if (m[2]) html += '<p class="news-img-cap">' + inlineFormat(escapeHtml(m[2])) + '</p>';
+                    return;
+                }
+                // [видео: YouTube сілтеме]
+                m = t.match(/^\[\s*(?:видео|бейне|video)\s*:\s*(\S+)\s*\]$/i);
+                if (m) {
+                    const vid = youtubeId(m[1]);
+                    if (vid) {
+                        html += '<div class="news-video"><iframe src="https://www.youtube.com/embed/' + vid +
+                            '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>';
+                    }
+                    return;
+                }
+                // ## Ішкі тақырыпша
+                if (t.indexOf('##') === 0) {
+                    html += '<h4 class="news-sub">' + inlineFormat(escapeHtml(t.replace(/^#+\s*/, ''))) + '</h4>';
+                    return;
+                }
+                // Кәдімгі абзац; ең біріншісі — ЛИД
+                const inner = inlineFormat(escapeHtml(t)).replace(/\n/g, '<br>');
+                if (!leadDone) {
+                    html += '<p class="news-lead">' + inner + '</p>';
+                    leadDone = true;
+                } else {
+                    html += '<p class="news-p">' + inner + '</p>';
+                }
+            });
+            return html;
+        }
+
+        // Карточкадағы үзінді үшін белгілерден тазартылған таза мәтін
+        function plainNewsText(text) {
+            return String(text || '')
+                .replace(/\[\s*(?:сурет|фото|img|видео|бейне|video)\s*:[^\]]*\]/gi, ' ')
+                .replace(/^#+\s*/gm, '')
+                .replace(/\*\*([^*\n]+)\*\*/g, '$1')
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        // Оқу уақыты (минутпен): орташа 150 сөз/мин
+        function readingTimeMin(item) {
+            const words = plainNewsText((item.title || '') + ' ' + (item.body || ''))
+                .split(/\s+/).filter(Boolean).length;
+            return Math.max(1, Math.round(words / 150));
+        }
+
         function formatKkDate(iso) {
             try {
                 const months = ['қаңтар','ақпан','наурыз','сәуір','мамыр','маусым','шілде','тамыз','қыркүйек','қазан','қараша','желтоқсан'];
@@ -1978,6 +2097,8 @@
                         <span>·</span>
                         <span>${escapeHtml(item.author)}</span>
                         <span>·</span>
+                        <span title="Оқу уақыты">⏱ ${readingTimeMin(item)} мин</span>
+                        <span>·</span>
                         <span title="Оқылым саны">👁 ${newsViewsOf(item.id)}</span>
                     </div>`;
 
@@ -2001,7 +2122,7 @@
                                 ${rubricBadge}
                                 ${meta}
                                 <h3 class="text-2xl sm:text-4xl font-black text-white mb-4 leading-[1.05] heading-tight">${escapeHtml(item.title)}</h3>
-                                <p class="news-body clamp-5 text-sm sm:text-base text-white/70 leading-relaxed">${escapeHtml(item.body)}</p>
+                                <p class="news-body clamp-5 text-sm sm:text-base text-white/70 leading-relaxed">${escapeHtml(plainNewsText(item.body))}</p>
                                 <span class="mt-5 inline-flex items-center gap-1.5 text-[#B0FB26] font-bold text-sm group-hover:gap-3 transition-all">Толық оқу <span>→</span></span>
                             </div>
                         </div>`;
@@ -2019,7 +2140,7 @@
                             ${rubricBadge}
                             ${meta}
                             <h3 class="text-lg font-black text-white mb-2 leading-snug">${escapeHtml(item.title)}</h3>
-                            <p class="news-body clamp-3 text-sm text-white/65 leading-relaxed flex-grow">${escapeHtml(item.body)}</p>
+                            <p class="news-body clamp-3 text-sm text-white/65 leading-relaxed flex-grow">${escapeHtml(plainNewsText(item.body))}</p>
                             <span class="mt-4 inline-flex items-center gap-1.5 text-[#B0FB26] font-bold text-xs group-hover:gap-3 transition-all">Толық оқу <span>→</span></span>
                         </div>`;
                 }
@@ -2085,12 +2206,14 @@
                 document.getElementById('newsDetailCloseTop').classList.remove('hidden');
             }
             document.getElementById('newsDetailMeta').textContent =
-                formatKkDate(item.date) + ' · ' + (item.author || '') + ' · 👁 ' + newsViewsOf(id);
+                formatKkDate(item.date) + ' · ' + (item.author || '') + ' · ⏱ ' + readingTimeMin(item) + ' мин · 👁 ' + newsViewsOf(id);
             const rb = document.getElementById('newsDetailRubric');
             if (item.rubric) { rb.textContent = item.rubric; rb.classList.remove('hidden'); }
             else { rb.classList.add('hidden'); }
             document.getElementById('newsDetailTitle').textContent = item.title || '';
-            document.getElementById('newsDetailBody').textContent = item.body || '';
+            const bodyEl = document.getElementById('newsDetailBody');
+            bodyEl.classList.add('news-rich');
+            bodyEl.innerHTML = renderNewsBody(item.body || '');
             m.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
             setTimeout(() => m.classList.remove('opacity-0'), 30);
