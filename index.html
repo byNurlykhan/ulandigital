@@ -167,7 +167,7 @@
                     </div>
                     <div class="p-3 sm:p-4 bg-[#111111]/60 rounded-2xl border border-white/10 flex items-center space-x-3">
                         <div class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500 flex-shrink-0 animate-pulse"></div>
-                        <p class="text-xs sm:text-sm text-white/90">Бүгін платформаға <span class="font-bold text-[#B0FB26]"><span id="liveCount">—</span> оқырман</span> кірді</p>
+                        <p class="text-xs sm:text-sm text-white/90">Қазір платформада <span class="font-bold text-[#B0FB26]"><span id="liveCount">13</span> оқушы</span> хат жазып жатыр...</p>
                     </div>
 
                     <a href="https://ulan.kazgazeta.kz/subscribe" target="_blank" rel="noopener"
@@ -977,6 +977,9 @@
     <script>
         // === Apps Script деплой URL (POST + JSONP осы URL-ді қолданады) ===
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzxsVDRrzou_ooGE5BlN88F84jFCVtX-Gc41cDuPRX-wTnGt_GvKzDJb8qB4spiaH-e/exec";
+        // ⬇️ СТАТИСТИКА БЭКЕНДІ (бөлек жоба). Жаңа Apps Script жариялаған соң
+        // шыққан URL-ды осы жерге қой:
+        const STATS_URL = "МҰНДА_СТАТИСТИКА_URL_ҚОЙ";
 
         // ═══════════════════════════════════════════════════════════════
         // АЙДЫҢ ҮЗДІК ТІЛШІСІНІҢ ФОТОСЫ — репоның өзінен алынады.
@@ -1080,16 +1083,33 @@
         }
 
         // «Қазір N оқушы хат жазып жатыр» — санды 7-68 аралығында ауыстырып тұру
-        // === ШЫНАЙЫ АШЫҚ СТАТИСТИКА (бүгінгі оқырман, сертификат саны, жаңалық оқылымы) ===
+        // === «Қазір платформада N оқушы...» — жанды санауыш (7–78, әр 20–30 сек) ===
+        function startLiveCounter() {
+            const el = document.getElementById('liveCount');
+            if (!el) return;
+            const rnd = () => Math.floor(Math.random() * (78 - 7 + 1)) + 7;
+            el.textContent = rnd();
+            (function tick() {
+                const delay = 20000 + Math.floor(Math.random() * 10001); // 20–30 сек
+                setTimeout(() => { el.textContent = rnd(); tick(); }, delay);
+            })();
+        }
+
+        // === ШЫНАЙЫ АШЫҚ СТАТИСТИКА (сертификат саны, жаңалық оқылымы) ===
         let publicStats = { visitsToday: 0, visitsTotal: 0, certCount: 0, newsViews: {} };
 
         function newsViewsOf(id) {
             return Number((publicStats.newsViews || {})[String(id)] || 0);
         }
 
+        function statsReady() {
+            return STATS_URL && STATS_URL.indexOf('script.google.com') !== -1;
+        }
+
         async function loadPublicStats() {
+            if (!statsReady()) return; // STATS_URL әлі қойылмаған
             try {
-                const res = await jsonp({ action: 'getPublicStats' });
+                const res = await jsonp({ action: 'getPublicStats' }, 20000, STATS_URL);
                 if (res && res.ok && res.stats) {
                     publicStats = Object.assign(publicStats, res.stats);
                     applyPublicStats();
@@ -1098,8 +1118,6 @@
         }
 
         function applyPublicStats() {
-            const lc = document.getElementById('liveCount');
-            if (lc) lc.textContent = publicStats.visitsToday || 0;
             const cc = document.getElementById('certCountPublic');
             if (cc) cc.textContent = publicStats.certCount || 0;
             // Жаңалық карточкаларындағы 👁 сандарын жаңарту
@@ -1133,8 +1151,10 @@
                 if (res && res.ok) renderLog(res.log || []);
             } catch (e) {}
             try {
-                const res = await jsonp({ action: 'getCerts', login: currentAdmin.login, pass: currentAdmin.pass });
-                if (res && res.ok) renderCerts(res.certs || []);
+                if (statsReady()) {
+                    const res = await jsonp({ action: 'getCerts', login: currentAdmin.login, pass: currentAdmin.pass }, 20000, STATS_URL);
+                    if (res && res.ok) renderCerts(res.certs || []);
+                }
             } catch (e) {}
         }
 
@@ -1392,16 +1412,18 @@
                     id: certId
                 }));
             } catch (e) {}
-            // Серверге тіркейміз: кім, қашан, қай нөмірмен алды
+            // Статистика бэкендіне тіркейміз: кім, қашан, қай нөмірмен алды
             try {
-                fetch(WEB_APP_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: JSON.stringify({ type: 'cert', name: name, certId: certId })
-                });
-                publicStats.certCount = (publicStats.certCount || 0) + 1;
-                const cc = document.getElementById('certCountPublic');
-                if (cc) cc.textContent = publicStats.certCount;
+                if (statsReady()) {
+                    fetch(STATS_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        body: JSON.stringify({ type: 'cert', name: name, certId: certId })
+                    });
+                    publicStats.certCount = (publicStats.certCount || 0) + 1;
+                    const cc = document.getElementById('certCountPublic');
+                    if (cc) cc.textContent = publicStats.certCount;
+                }
             } catch (e) {}
             applyCertLock();
         }
@@ -1874,7 +1896,7 @@
         }
 
         // ====================== JSONP КӨМЕКШІСІ ======================
-        function jsonp(params, timeoutMs) {
+        function jsonp(params, timeoutMs, baseUrl) {
             return new Promise((resolve, reject) => {
                 const cb = 'cb_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
                 const s = document.createElement('script');
@@ -1888,7 +1910,7 @@
                 const q = Object.keys(params)
                     .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
                     .join('&');
-                s.src = WEB_APP_URL + '?' + q + '&callback=' + cb;
+                s.src = (baseUrl || WEB_APP_URL) + '?' + q + '&callback=' + cb;
                 s.onerror = function() { cleanup(); reject(new Error('network')); };
                 document.body.appendChild(s);
             });
@@ -2015,6 +2037,7 @@
         // === Жаңалық оқылымын тіркеу (бір құрылғы = бір мақала = күніне 1 рет) ===
         function pingNewsView(id) {
             try {
+                if (!statsReady()) return;
                 const key = 'ulan_news_seen';
                 const today = new Date().toISOString().slice(0, 10);
                 let seen = {};
@@ -2024,7 +2047,7 @@
                 try { localStorage.setItem(key, JSON.stringify(seen)); } catch (e) {}
                 if (!publicStats.newsViews) publicStats.newsViews = {};
                 publicStats.newsViews[String(id)] = newsViewsOf(id) + 1;
-                fetch(WEB_APP_URL, {
+                fetch(STATS_URL, {
                     method: 'POST',
                     mode: 'no-cors',
                     body: JSON.stringify({ type: 'newsView', id: String(id) })
@@ -2325,7 +2348,7 @@
         }
 
         // === БАСТАПҚЫ ЖҮКТЕУ ===
-        document.addEventListener('DOMContentLoaded', function() { loadNews(); pingVisit(); loadPublicStats(); initCertificate(); loadBestReporter(); });
+        document.addEventListener('DOMContentLoaded', function() { loadNews(); pingVisit(); startLiveCounter(); loadPublicStats(); initCertificate(); loadBestReporter(); });
         // #admin хэшімен де кабинетті ашуға болады
         if (location.hash === '#admin') openAdmin();
     </script>
