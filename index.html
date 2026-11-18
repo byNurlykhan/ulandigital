@@ -476,6 +476,9 @@
         .u-input::placeholder { color: #ABA6C2; font-weight: 600; }
         .u-input:focus { outline: none; background: #fff; border-color: #A78BFA; box-shadow: 0 0 0 5px rgba(167,139,250,.18); }
         textarea.u-input { resize: vertical; min-height: 64px; }
+        /* iPhone-да экранға шығарылған қосымшада өріске жазу үшін */
+        input, textarea, select { -webkit-user-select: text; user-select: text; touch-action: manipulation; -webkit-touch-callout: default; }
+        body.kb-open .u-tabbar, body.kb-open #installBanner { display: none !important; }
         .u-hint { font-size: 12px; color: var(--ink3); font-weight: 700; line-height: 1.45; display: flex; gap: 6px; }
         .u-form-head { display: flex; align-items: center; gap: 14px; padding-bottom: 18px; margin-bottom: 4px; border-bottom: 2px dashed var(--line); }
         .u-avatar { width: 56px; height: 56px; border-radius: 50%; background: #DFF5FF; overflow: hidden; flex-shrink: 0; border: 3px solid #fff; box-shadow: 0 6px 16px -8px rgba(40,20,90,.5); }
@@ -928,7 +931,7 @@
             </div>
 
             <div class="u-cert-grid">
-                <div class="u-card u-pad u-form u-reveal">
+                <div class="u-card u-pad u-form">
                     <div class="u-form-head">
                         <span class="u-avatar"><img src="balaqai_face.png" alt=""></span>
                         <div><h3 class="u-h3">Сертификатқа атың</h3><p class="u-muted" style="font-size:13px;font-weight:700">Есімің бірден суретте пайда болады</p></div>
@@ -964,7 +967,7 @@
                 <p class="u-lead" style="font-size:15px">Мақалаңды барлық қажетті деректермен жүйелі түрде жолда</p>
             </div>
 
-            <form id="articleForm" class="u-card u-pad u-form u-reveal">
+            <form id="articleForm" class="u-card u-pad u-form">
                 <div class="u-form-head">
                     <span class="u-avatar"><img src="balaqai_face.png" alt=""></span>
                     <div><h3 class="u-h3">Мақалаңды күтемін! <svg class="ic"><use href="#i-sparkle"/></svg></h3><p class="u-muted" style="font-size:13px;font-weight:700">* белгісі бар өрістер міндетті</p></div>
@@ -1018,7 +1021,7 @@
                 <p class="u-lead" style="font-size:15px">Ішкі сырыңмен, ешкімге айта алмаған уайымыңмен анонимді түрде бөліс. Біз сені қолдаймыз <svg class="ic"><use href="#i-heart"/></svg></p>
             </div>
 
-            <div class="u-card u-pad u-form u-reveal">
+            <div class="u-card u-pad u-form">
                 <div class="u-field">
                     <span class="u-label">Хаттың бағытын таңда:</span>
                     <div class="u-cats" id="categoryContainer">
@@ -3332,6 +3335,20 @@
             document.getElementById('installHelp').classList.remove('hidden');
         }
         function closeInstallHelp() { document.getElementById('installHelp').classList.add('hidden'); }
+
+        // Пернетақта ашылғанда (өріс белсенді) төменгі мәзірді жасырамыз – iPhone-да өрісті жаппасын
+        let kbTimer = null;
+        document.addEventListener('focusin', function (e) {
+            if (e.target.matches && e.target.matches('input, textarea, select')) {
+                clearTimeout(kbTimer);
+                document.body.classList.add('kb-open');
+            }
+        });
+        document.addEventListener('focusout', function (e) {
+            if (e.target.matches && e.target.matches('input, textarea, select')) {
+                kbTimer = setTimeout(function () { document.body.classList.remove('kb-open'); }, 150);
+            }
+        });
         function dismissInstall() {
             document.getElementById('installBanner').classList.add('hidden');
             try { localStorage.setItem('ulan_install_dismissed', String(Date.now())); } catch (e) {}
