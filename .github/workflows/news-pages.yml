@@ -1,0 +1,37 @@
+# Жаңалықтардың бөлісу беттерін (/n/<id>/) жаңартып тұрады,
+# сонда сілтеме WhatsApp/Telegram-да суретімен көрінеді.
+name: Жаңалық превью беттері
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'   # әр 30 минут сайын
+  workflow_dispatch:          # Actions бетінен қолмен іске қосуға болады
+
+permissions:
+  contents: write
+
+concurrency:
+  group: news-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow==11.3.0
+      - run: python scripts/build_news_pages.py
+      - name: Өзгеріс болса – сақтау
+        run: |
+          if [ -n "$(git status --porcelain n)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add n
+            git commit -m "Жаңалық превью беттері жаңартылды"
+            git push
+          else
+            echo "Өзгеріс жоқ"
+          fi
