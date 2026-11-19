@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Сертификатты растау – «Ұлан»</title>
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/png" href="/icons/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --ink: #1C1633; --ink2: #5A5574; --ink3: #9B97AF; --line: #ECE8F5; --soft: #F4F1FB; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Nunito', system-ui, sans-serif; color: var(--ink); min-height: 100vh;
+            background: linear-gradient(160deg, #BDE9FF 0%, #D8D0FF 55%, #FFD5EA 100%);
+            display: flex; align-items: center; justify-content: center; padding: 24px 16px; }
+        .card { width: 100%; max-width: 460px; background: #fff; border-radius: 32px; padding: 28px 24px;
+            box-shadow: 0 30px 60px -24px rgba(60,36,130,.35); text-align: center; }
+        .logo { height: 56px; width: auto; margin-bottom: 18px; }
+        .badge { width: 88px; height: 88px; border-radius: 50%; margin: 0 auto 14px; display: flex; align-items: center; justify-content: center;
+            font-size: 46px; font-weight: 900; color: #fff; }
+        .ok .badge { background: linear-gradient(135deg, #34D27B, #11893F); box-shadow: 0 14px 28px -12px rgba(17,137,63,.7); }
+        .bad .badge { background: linear-gradient(135deg, #FFB86B, #E07B00); box-shadow: 0 14px 28px -12px rgba(224,123,0,.7); }
+        h1 { font-size: 26px; font-weight: 900; line-height: 1.2; margin-bottom: 6px; }
+        .lead { color: var(--ink2); font-weight: 700; font-size: 15px; line-height: 1.5; margin-bottom: 18px; }
+        .rows { text-align: left; background: var(--soft); border-radius: 20px; padding: 6px 16px; }
+        .row { display: flex; justify-content: space-between; gap: 14px; padding: 12px 0; border-bottom: 1px dashed #DCD5F2; }
+        .row:last-child { border-bottom: 0; }
+        .row span { color: var(--ink3); font-weight: 800; font-size: 13px; flex-shrink: 0; }
+        .row b { font-weight: 900; font-size: 15px; text-align: right; overflow-wrap: anywhere; }
+        .note { margin-top: 16px; font-size: 12.5px; color: var(--ink3); font-weight: 700; line-height: 1.5; }
+        .btn { display: inline-block; margin-top: 18px; background: linear-gradient(90deg, #FFA62B, #FF5FA2); color: #fff; text-decoration: none;
+            font-weight: 900; padding: 14px 24px; border-radius: 999px; box-shadow: 0 12px 24px -10px rgba(255,95,162,.7); }
+    </style>
+</head>
+<body>
+    <main class="card" id="card">
+        <img src="/ulan_logo.png" alt="Ұлан" class="logo">
+        <div class="badge" id="badge">…</div>
+        <h1 id="title">Тексерілуде…</h1>
+        <p class="lead" id="lead"></p>
+        <div class="rows" id="rows" hidden></div>
+        <p class="note">Бұл бетте сертификаттағы аты-жөн, күн мен нөмірдің бір-біріне сәйкестігі тексеріледі. Сұрақ болса, «Ұлан» редакциясына хабарласыңыз.</p>
+        <a class="btn" href="/">ulandigital.kz сайтына өту</a>
+    </main>
+    <script>
+        // Сайттағы certIdFor() функциясымен бірдей есептеу
+        function certIdFor(prefix, name, day) {
+            const base = prefix + '|' + (name || '') + '|' + day;
+            let h = 0;
+            for (let i = 0; i < base.length; i++) { h = (h * 31 + base.charCodeAt(i)) >>> 0; }
+            return 'UL-' + prefix + '-' + day.slice(0, 4) + '-' + ('00000' + h.toString(36).toUpperCase()).slice(-6);
+        }
+        function kkDate(iso) {
+            const m = ['қаңтар','ақпан','наурыз','сәуір','мамыр','маусым','шілде','тамыз','қыркүйек','қазан','қараша','желтоқсан'];
+            const d = new Date(iso + 'T12:00:00Z');
+            return isNaN(d) ? iso : d.getUTCDate() + ' ' + m[d.getUTCMonth()] + ', ' + d.getUTCFullYear();
+        }
+        const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        const TYPES = { MS: '«Ұлан» медиа мектебінің сертификаты', BT: '«Айдың үздік тілшісі» картасы' };
+
+        const q = new URLSearchParams(location.search);
+        const t = q.get('t') || '', n = (q.get('n') || '').trim(), d = q.get('d') || '', c = q.get('c') || '';
+        const valid = TYPES[t] && n && /^\d{4}-\d{2}-\d{2}$/.test(d) && c && certIdFor(t, n, d) === c;
+
+        const card = document.getElementById('card');
+        if (valid) {
+            card.className = 'card ok';
+            document.getElementById('badge').textContent = '✓';
+            document.getElementById('title').textContent = 'Сертификат расталды';
+            document.getElementById('lead').textContent = 'Бұл құжат ulandigital.kz платформасында берілген.';
+            const rows = document.getElementById('rows');
+            rows.innerHTML =
+                '<div class="row"><span>Түрі</span><b>' + esc(TYPES[t]) + '</b></div>' +
+                '<div class="row"><span>Иесі</span><b>' + esc(n) + '</b></div>' +
+                '<div class="row"><span>Берілген күні</span><b>' + esc(kkDate(d)) + '</b></div>' +
+                '<div class="row"><span>Нөмірі</span><b>' + esc(c) + '</b></div>';
+            rows.hidden = false;
+        } else {
+            card.className = 'card bad';
+            document.getElementById('badge').textContent = '!';
+            document.getElementById('title').textContent = 'Сертификат расталмады';
+            document.getElementById('lead').textContent = 'Сілтемедегі деректер сәйкес келмейді немесе толық емес. QR кодты сертификаттың өзінен қайта сканерлеп көріңіз.';
+        }
+    </script>
+</body>
+</html>
