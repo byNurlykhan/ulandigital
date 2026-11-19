@@ -446,6 +446,18 @@
         #news::before { display: none; }
 
         /* --- Біздің мектепте --- */
+        .sc-cta { margin-top: 20px; display: flex; align-items: center; gap: 18px; padding: 18px 20px; border-radius: 28px;
+            background: linear-gradient(120deg, #E6F8EE 0%, #EEE7FF 100%); border: 1px solid #D5EFE0; box-shadow: var(--shadow); }
+        .sc-cta-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+        .sc-cta-txt p { color: var(--ink2); font-weight: 600; font-size: 14.5px; line-height: 1.5; }
+        .sc-cta .u-btn { flex-shrink: 0; }
+        @media (max-width: 760px) { .sc-cta { flex-direction: column; align-items: flex-start; } .sc-cta .u-btn { width: 100%; } }
+        #scModal:not(.hidden) { display: flex; align-items: flex-end; justify-content: center; overflow-y: auto; }
+        @media (min-width: 640px) { #scModal:not(.hidden) { align-items: center; padding: 20px; } }
+        .sc-sheet { position: relative; width: 100%; max-width: 520px; max-height: 92vh; overflow-y: auto; border-radius: 28px 28px 0 0; padding: 22px 20px calc(22px + env(safe-area-inset-bottom)); box-shadow: var(--shadow-lg); }
+        @media (min-width: 640px) { .sc-sheet { border-radius: 28px; } }
+        .sc-close { position: absolute; top: 14px; right: 14px; z-index: 2; }
+        .sc-sheet .u-form-head { padding-right: 46px; }
         .sc-grid { display: grid; grid-template-columns: 1fr; gap: 16px; align-items: start; }
         @media (min-width: 1000px) { .sc-grid { grid-template-columns: 1.5fr 1fr; gap: 20px; } .sc-panel { position: sticky; top: 100px; } }
         .sc-feed { display: grid; grid-template-columns: 1fr; gap: 14px; }
@@ -713,7 +725,7 @@
             </a>
             <div class="u-links">
                 <a href="#news">Жаңалықтар</a>
-                <a href="#our-school">Біздің мектепте</a>
+                <a href="#news" onclick="scOpen(); return false;">Біздің мектепте</a>
                 <a href="#school">Медиа мектеп</a>
                 <a href="#anonymous-zone">Сырласу</a>
                 <a href="#about">Тарихы</a>
@@ -785,7 +797,7 @@
                         <a href="#certificate" class="u-action"><span class="u-tile t-yellow"><svg class="ic"><use href="#i-medal"/></svg></span>Сертификат</a>
                         <a href="#best-reporter" class="u-action"><span class="u-tile t-green"><svg class="ic"><use href="#i-trophy"/></svg></span>Үздік тілші</a>
                         <a href="#school" class="u-action"><span class="u-tile t-purple"><svg class="ic"><use href="#i-cap"/></svg></span>Мектеп</a>
-                        <a href="#our-school" class="u-action"><span class="u-tile t-lime"><svg class="ic"><use href="#i-school"/></svg></span>Мектебім</a>
+                        <a href="#news" onclick="scOpen(); return false;" class="u-action"><span class="u-tile t-lime"><svg class="ic"><use href="#i-school"/></svg></span>Мектебім</a>
                     </div>
                 </div>
 
@@ -889,110 +901,19 @@
             <div id="newsLoading" class="u-empty">Жаңалықтар жүктелуде... <svg class="ic"><use href="#i-clock"/></svg></div>
             <div id="newsEmpty" class="hidden u-empty">Әзірге жаңалық жоқ. Жуырда толтырылады!</div>
             <div id="newsGrid" class="nf"></div>
+            <div class="sc-cta u-reveal">
+                <span class="u-avatar" style="width:64px;height:64px"><img src="balaqai_face.png" alt=""></span>
+                <div class="sc-cta-txt">
+                    <span class="u-chip green" style="margin-bottom:6px"><svg class="ic"><use href="#i-school"/></svg> Біздің мектепте</span>
+                    <h3 class="u-h3">Мектебіңде қызық оқиға болды ма?</h3>
+                    <p>Тіркел де, жаңалықты 70 сөзбен жаз, бір сурет қос. Редакция қараған соң ол осы лентаға шығады!</p>
+                </div>
+                <button type="button" class="u-btn u-btn-grad" onclick="scOpen()"><svg class="ic"><use href="#i-pen"/></svg> Мектеп жаңалығын жазу</button>
+            </div>
             <div id="newsMoreWrap" class="hidden" style="text-align:center;margin-top:28px">
                 <button id="newsMoreBtn" onclick="showMoreNews()" class="u-btn u-btn-dark">
                     Тағы да <span id="newsMoreCount"></span> ↓
                 </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============ БІЗДІҢ МЕКТЕПТЕ ============ -->
-    <section id="our-school" class="u-section" style="padding-top:0">
-        <div class="u-wrap">
-            <div class="u-head row">
-                <div style="display:flex;flex-direction:column;gap:12px">
-                    <span class="u-chip green"><svg class="ic"><use href="#i-school"/></svg> Жаңа рубрика</span>
-                    <h2 class="u-h2">Біздің мектепте</h2>
-                </div>
-                <p class="u-lead" style="font-size:15px">Мектебіңде не болып жатыр? Тіркел де, жаңалықты 70 сөзбен жаз, бір сурет қос. Редакция қарап шыққан соң сайтқа шығады!</p>
-            </div>
-
-            <div class="sc-grid">
-                <!-- Оқушылардың жарияланған жаңалықтары -->
-                <div class="sc-feed-wrap">
-                    <div id="scFeed" class="sc-feed"></div>
-                    <div id="scFeedEmpty" class="u-empty hidden">Әзірге жаңалық жоқ. Бірінші болып сен жаз!</div>
-                </div>
-
-                <!-- Кіру / тіркелу / жаңалық жазу -->
-                <div class="u-card u-pad sc-panel" id="scPanel">
-                    <!-- Кірмеген күй -->
-                    <div id="scAuth">
-                        <div class="u-form-head">
-                            <span class="u-avatar"><img src="balaqai_face.png" alt=""></span>
-                            <div><h3 class="u-h3">Мектеп тілшісі бол!</h3><p class="u-muted" style="font-size:13px;font-weight:700">Жазу үшін алдымен тіркел</p></div>
-                        </div>
-                        <div class="sc-tabs" role="tablist">
-                            <button type="button" class="sc-tab is-active" data-tab="login" onclick="scTab('login')">Кіру</button>
-                            <button type="button" class="sc-tab" data-tab="register" onclick="scTab('register')">Тіркелу</button>
-                        </div>
-                        <form id="scLoginForm" class="u-form" onsubmit="scLogin(event)">
-                            <div class="u-field"><label class="u-label" for="scLoginLogin">Логин</label>
-                                <input id="scLoginLogin" class="u-input" autocomplete="username" autocapitalize="none" required placeholder="мысалы: aigerim_45"></div>
-                            <div class="u-field"><label class="u-label" for="scLoginPass">Құпиясөз</label>
-                                <input id="scLoginPass" type="password" class="u-input" autocomplete="current-password" required placeholder="••••••"></div>
-                            <button type="submit" class="u-btn u-btn-grad u-btn-block" id="scLoginBtn">Кіру</button>
-                            <p class="u-hint">Құпиясөзді ұмытсаң, «Хат жазамын» бөлімі арқылы редакцияға жаз, қалпына келтіріп береміз.</p>
-                        </form>
-                        <form id="scRegForm" class="u-form hidden" onsubmit="scRegister(event)">
-                            <div class="u-field"><label class="u-label" for="scRegName">Аты-жөнің *</label>
-                                <input id="scRegName" class="u-input" maxlength="60" required placeholder="Айгерім Сәрсенова"></div>
-                            <div class="u-grid2" style="grid-template-columns:1.6fr 1fr">
-                                <div class="u-field"><label class="u-label" for="scRegSchool">Мектебің *</label>
-                                    <input id="scRegSchool" class="u-input" maxlength="100" required placeholder="№45 мектеп-лицей"></div>
-                                <div class="u-field"><label class="u-label" for="scRegGrade">Сыныбың *</label>
-                                    <input id="scRegGrade" class="u-input" maxlength="20" required placeholder="7 «Ә»"></div>
-                            </div>
-                            <div class="u-field"><label class="u-label" for="scRegRegion">Қала / аудан</label>
-                                <input id="scRegRegion" class="u-input" maxlength="60" placeholder="Астана"></div>
-                            <div class="u-grid2">
-                                <div class="u-field"><label class="u-label" for="scRegLogin">Логин ойлап тап *</label>
-                                    <input id="scRegLogin" class="u-input" maxlength="20" autocomplete="username" autocapitalize="none" required placeholder="aigerim_45"></div>
-                                <div class="u-field"><label class="u-label" for="scRegPass">Құпиясөз *</label>
-                                    <input id="scRegPass" type="password" class="u-input" minlength="6" autocomplete="new-password" required placeholder="кемінде 6 таңба"></div>
-                            </div>
-                            <p class="u-hint">Логин: латын әріптері, сандар, _ немесе . (3–20 таңба). Сайтта тек атың, мектебің мен сыныбың көрінеді.</p>
-                            <label class="sc-check"><input type="checkbox" id="scRegAgree" required> <span>Ата-анам не мұғалімім біледі және рұқсат берді</span></label>
-                            <button type="submit" class="u-btn u-btn-grad u-btn-block" id="scRegBtn">Тіркелу</button>
-                        </form>
-                        <p id="scAuthMsg" class="sc-msg hidden"></p>
-                    </div>
-
-                    <!-- Кірген күй: жаңалық жазу -->
-                    <div id="scWriter" class="hidden">
-                        <div class="u-form-head" style="justify-content:space-between">
-                            <div style="display:flex;align-items:center;gap:12px;min-width:0">
-                                <span class="u-avatar sc-ini" id="scIni">А</span>
-                                <div style="min-width:0"><h3 class="u-h3" id="scHello">Сәлем!</h3><p class="u-muted" style="font-size:13px;font-weight:700" id="scWho"></p></div>
-                            </div>
-                            <button type="button" class="u-btn u-btn-ghost u-btn-sm" onclick="scLogout()">Шығу</button>
-                        </div>
-                        <form id="scPostForm" class="u-form" onsubmit="scSubmit(event)">
-                            <div class="u-field">
-                                <label class="u-label" for="scText">Мектебіңдегі жаңалық *</label>
-                                <textarea id="scText" class="u-input" rows="5" maxlength="700" required placeholder="Не болды? Қашан? Кімдер қатысты? Қысқа әрі қызықты жаз..." oninput="scCount()"></textarea>
-                                <div class="sc-count"><span id="scWords">0</span> / 70 сөз</div>
-                            </div>
-                            <div class="u-field">
-                                <span class="u-label">Сурет (біреу, міндетті емес)</span>
-                                <label class="sc-photo" id="scPhotoBox">
-                                    <input type="file" id="scPhoto" accept="image/*" onchange="scPickPhoto()" hidden>
-                                    <img id="scPhotoPrev" class="hidden" alt="">
-                                    <span id="scPhotoHint"><svg class="ic" style="width:34px;height:34px"><use href="#i-image"/></svg><br>Сурет таңдау</span>
-                                </label>
-                                <button type="button" class="u-btn u-btn-ghost u-btn-sm hidden" id="scPhotoDel" onclick="scClearPhoto()" style="align-self:flex-start">Суретті алып тастау</button>
-                                <p class="u-hint">Суретте балалардың беті анық көрінсе, олардың рұқсатын ал.</p>
-                            </div>
-                            <button type="submit" class="u-btn u-btn-grad u-btn-block" id="scSendBtn">Редакцияға жіберу</button>
-                        </form>
-                        <p id="scWriteMsg" class="sc-msg hidden"></p>
-                        <div class="sc-mine">
-                            <h4 style="font-weight:900;margin:18px 0 8px">Менің жаңалықтарым</h4>
-                            <div id="scMine" class="sc-mine-list"></div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -1381,6 +1302,88 @@
                 <div id="newsReaderMore" class="nf-list"></div>
             </div>
         </article>
+    </div>
+
+    <!-- ============ «БІЗДІҢ МЕКТЕПТЕ»: КІРУ ЖӘНЕ ЖАЗУ ТЕРЕЗЕСІ ============ -->
+    <div id="scModal" class="u-modal-bg fixed inset-0 hidden" style="z-index:66" onclick="if(event.target===this)scClose()">
+        <div class="u-sheet sc-sheet" id="scPanel">
+            <button type="button" class="u-x sc-close" onclick="scClose()" aria-label="Жабу">✕</button>
+                    <!-- Кірмеген күй -->
+                    <div id="scAuth">
+                        <div class="u-form-head">
+                            <span class="u-avatar"><img src="balaqai_face.png" alt=""></span>
+                            <div><h3 class="u-h3">Мектеп тілшісі бол!</h3><p class="u-muted" style="font-size:13px;font-weight:700">Жазу үшін алдымен тіркел</p></div>
+                        </div>
+                        <div class="sc-tabs" role="tablist">
+                            <button type="button" class="sc-tab is-active" data-tab="login" onclick="scTab('login')">Кіру</button>
+                            <button type="button" class="sc-tab" data-tab="register" onclick="scTab('register')">Тіркелу</button>
+                        </div>
+                        <form id="scLoginForm" class="u-form" onsubmit="scLogin(event)">
+                            <div class="u-field"><label class="u-label" for="scLoginLogin">Логин</label>
+                                <input id="scLoginLogin" class="u-input" autocomplete="username" autocapitalize="none" required placeholder="мысалы: aigerim_45"></div>
+                            <div class="u-field"><label class="u-label" for="scLoginPass">Құпиясөз</label>
+                                <input id="scLoginPass" type="password" class="u-input" autocomplete="current-password" required placeholder="••••••"></div>
+                            <button type="submit" class="u-btn u-btn-grad u-btn-block" id="scLoginBtn">Кіру</button>
+                            <p class="u-hint">Құпиясөзді ұмытсаң, «Хат жазамын» бөлімі арқылы редакцияға жаз, қалпына келтіріп береміз.</p>
+                        </form>
+                        <form id="scRegForm" class="u-form hidden" onsubmit="scRegister(event)">
+                            <div class="u-field"><label class="u-label" for="scRegName">Аты-жөнің *</label>
+                                <input id="scRegName" class="u-input" maxlength="60" required placeholder="Айгерім Сәрсенова"></div>
+                            <div class="u-grid2" style="grid-template-columns:1.6fr 1fr">
+                                <div class="u-field"><label class="u-label" for="scRegSchool">Мектебің *</label>
+                                    <input id="scRegSchool" class="u-input" maxlength="100" required placeholder="№45 мектеп-лицей"></div>
+                                <div class="u-field"><label class="u-label" for="scRegGrade">Сыныбың *</label>
+                                    <input id="scRegGrade" class="u-input" maxlength="20" required placeholder="7 «Ә»"></div>
+                            </div>
+                            <div class="u-field"><label class="u-label" for="scRegRegion">Қала / аудан</label>
+                                <input id="scRegRegion" class="u-input" maxlength="60" placeholder="Астана"></div>
+                            <div class="u-grid2">
+                                <div class="u-field"><label class="u-label" for="scRegLogin">Логин ойлап тап *</label>
+                                    <input id="scRegLogin" class="u-input" maxlength="20" autocomplete="username" autocapitalize="none" required placeholder="aigerim_45"></div>
+                                <div class="u-field"><label class="u-label" for="scRegPass">Құпиясөз *</label>
+                                    <input id="scRegPass" type="password" class="u-input" minlength="6" autocomplete="new-password" required placeholder="кемінде 6 таңба"></div>
+                            </div>
+                            <p class="u-hint">Логин: латын әріптері, сандар, _ немесе . (3–20 таңба). Сайтта тек атың, мектебің мен сыныбың көрінеді.</p>
+                            <label class="sc-check"><input type="checkbox" id="scRegAgree" required> <span>Ата-анам не мұғалімім біледі және рұқсат берді</span></label>
+                            <button type="submit" class="u-btn u-btn-grad u-btn-block" id="scRegBtn">Тіркелу</button>
+                        </form>
+                        <p id="scAuthMsg" class="sc-msg hidden"></p>
+                    </div>
+
+                    <!-- Кірген күй: жаңалық жазу -->
+                    <div id="scWriter" class="hidden">
+                        <div class="u-form-head" style="justify-content:space-between">
+                            <div style="display:flex;align-items:center;gap:12px;min-width:0">
+                                <span class="u-avatar sc-ini" id="scIni">А</span>
+                                <div style="min-width:0"><h3 class="u-h3" id="scHello">Сәлем!</h3><p class="u-muted" style="font-size:13px;font-weight:700" id="scWho"></p></div>
+                            </div>
+                            <button type="button" class="u-btn u-btn-ghost u-btn-sm" onclick="scLogout()">Шығу</button>
+                        </div>
+                        <form id="scPostForm" class="u-form" onsubmit="scSubmit(event)">
+                            <div class="u-field">
+                                <label class="u-label" for="scText">Мектебіңдегі жаңалық *</label>
+                                <textarea id="scText" class="u-input" rows="5" maxlength="700" required placeholder="Не болды? Қашан? Кімдер қатысты? Қысқа әрі қызықты жаз..." oninput="scCount()"></textarea>
+                                <div class="sc-count"><span id="scWords">0</span> / 70 сөз</div>
+                            </div>
+                            <div class="u-field">
+                                <span class="u-label">Сурет (біреу, міндетті емес)</span>
+                                <label class="sc-photo" id="scPhotoBox">
+                                    <input type="file" id="scPhoto" accept="image/*" onchange="scPickPhoto()" hidden>
+                                    <img id="scPhotoPrev" class="hidden" alt="">
+                                    <span id="scPhotoHint"><svg class="ic" style="width:34px;height:34px"><use href="#i-image"/></svg><br>Сурет таңдау</span>
+                                </label>
+                                <button type="button" class="u-btn u-btn-ghost u-btn-sm hidden" id="scPhotoDel" onclick="scClearPhoto()" style="align-self:flex-start">Суретті алып тастау</button>
+                                <p class="u-hint">Суретте балалардың беті анық көрінсе, олардың рұқсатын ал.</p>
+                            </div>
+                            <button type="submit" class="u-btn u-btn-grad u-btn-block" id="scSendBtn">Редакцияға жіберу</button>
+                        </form>
+                        <p id="scWriteMsg" class="sc-msg hidden"></p>
+                        <div class="sc-mine">
+                            <h4 style="font-weight:900;margin:18px 0 8px">Менің жаңалықтарым</h4>
+                            <div id="scMine" class="sc-mine-list"></div>
+                        </div>
+                    </div>
+        </div>
     </div>
 
     <!-- ============ СУРЕТТІ ҮЛКЕЙТУ ============ -->
@@ -2908,12 +2911,13 @@
             try {
                 const res = await jsonp({ action: 'getNews' });
                 const news = (res && res.news) ? res.news : [];
-                allNews = news;
+                mainNews = news;
+                mainNewsLoaded = true;
                 loading.classList.add('hidden');
-                renderNews(news);
+                rebuildNews();               // редакция жаңалықтары + «Біздің мектепте» бір лентада
                 renderAdminNewsList(news);
                 if (currentAdmin) loadAdminExtras();
-                empty.classList.toggle('hidden', news.length > 0);
+                empty.classList.toggle('hidden', allNews.length > 0);
                 openNewsFromHash(); // сілтемеде #news-ID болса, сол мақаланы ашамыз
             } catch (e) {
                 loading.textContent = 'Жаңалықтарды жүктеу мүмкін болмады. Бетті жаңартып көріңіз.';
@@ -2929,6 +2933,7 @@
 
         // Рубрикаға тұрақты түс (атауына қарай)
         function rubricColor(rubric) {
+            if (rubric === "Біздің мектепте") return ["#DDF7E7", "#11893F"];   // мектеп жаңалықтары – жасыл
             const colors = [['#FFF0DC','#D96F00'],['#EEE7FF','#6D3FE0'],['#FFE3F1','#D42A7F'],['#E2ECFF','#2457D6'],['#DDF7E7','#11893F'],['#FFF6C8','#8A6A00']];
             let h = 0; for (const ch of String(rubric || '')) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
             return colors[h % colors.length];
@@ -3162,7 +3167,14 @@
 
         // ====================== ӘКІМШІ ======================
         let currentAdmin = null; // { login, pass, name }
-        let allNews = [];        // лентадағы барлық жаңалық (өңдеу үшін)
+        let allNews = [];        // лентадағы барлық жаңалық (редакция + «Біздің мектепте»)
+        let mainNews = [];       // редакция жариялаған жаңалықтар (өңдеу үшін)
+        let schoolNews = [];     // оқушылар жазған, редакция мақұлдаған мектеп жаңалықтары
+        let mainNewsLoaded = false;
+        function rebuildNews() {
+            allNews = mainNews.concat(schoolNews).sort((a, b) => new Date(b.date) - new Date(a.date));
+            if (mainNewsLoaded) renderNews(allNews);
+        }
         let editingId = null;    // қазір өңделіп жатқан жаңалық id-і (null = жаңасын қосу)
 
         function openAdmin() {
@@ -3630,22 +3642,44 @@
         }
 
         // Сайттағы көпшілікке ашық тізім
+        // Мектеп жаңалығын лентадағы жаңалық түріне келтіру:
+        // тақырып – бірінші сөйлем, мәтін – қалғаны, рубрика – «Біздің мектепте»
+        function scToNews(p) {
+            const text = dashFix(String(p.text || '').trim());
+            const m = text.match(/^(.+?[.!?])(\s+|$)/);
+            let title = m ? m[1] : text;
+            if (title.length > 90) title = title.slice(0, 90).replace(/\s+\S*$/, '') + '…';
+            let rest = m ? text.slice(m[0].length).trim() : '';
+            if (rest.split(/\s+/).filter(Boolean).length < 3) rest = text;
+            return {
+                id: p.id, date: p.date, title: title, body: rest, imageUrl: p.photo || '',
+                rubric: 'Біздің мектепте', isSchool: true,
+                author: p.name + (p.school ? ' (' + [p.school, p.grade].filter(Boolean).join(', ') + ')' : '')
+            };
+        }
+
+        // Редакция мақұлдаған мектеп жаңалықтарын жүктеп, негізгі лентаға қосамыз
         async function scLoadFeed() {
-            const feed = document.getElementById('scFeed');
             try {
                 const r = await jsonp({ action: 'list' }, 20000, SCHOOL_URL);
-                const posts = (r && r.posts) || [];
-                document.getElementById('scFeedEmpty').classList.toggle('hidden', posts.length > 0);
-                feed.innerHTML = posts.map(p => `
-                    <article class="sc-post">
-                        ${p.photo ? `<div class="ph"><img src="${escapeHtml(p.photo)}" alt="" loading="lazy" onclick="openLightbox(this.src, '')" onerror="this.parentNode.remove()"></div>` : ''}
-                        <div class="tx">${escapeHtml(dashFix(p.text))}</div>
-                        <div class="by"><span class="av">${escapeHtml(scInitials(p.name))}</span>
-                            <div><b>${escapeHtml(p.name)}</b><span>${escapeHtml([p.school, p.grade].filter(Boolean).join(', '))} · ${escapeHtml(formatKkDate(p.date))}</span></div></div>
-                    </article>`).join('');
-            } catch (e) {
-                document.getElementById('scFeedEmpty').classList.remove('hidden');
-            }
+                schoolNews = ((r && r.posts) || []).map(scToNews);
+                rebuildNews();
+                if (mainNewsLoaded) {
+                    document.getElementById('newsEmpty').classList.toggle('hidden', allNews.length > 0);
+                    openNewsFromHash();   // бөліскен сілтеме мектеп жаңалығына апарса
+                }
+            } catch (e) { /* мектеп жаңалықтары жүктелмесе, лента бұрынғыдай қалады */ }
+        }
+
+        // Кіру / жазу терезесі
+        function scOpen() {
+            document.getElementById('scModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            scRefreshMe();
+        }
+        function scClose() {
+            document.getElementById('scModal').classList.add('hidden');
+            document.body.style.overflow = '';
         }
 
         // ----- Редакция кабинеті: тексеру -----
@@ -3688,11 +3722,9 @@
             } catch (e) { msg.textContent = 'Байланыс қатесі.'; msg.classList.remove('hidden'); }
         }
 
-        if (SCHOOL_URL.indexOf('script.google.com') !== -1) {
-            scLoadFeed(); scRefreshMe();
-        } else {
-            document.getElementById('scFeedEmpty').classList.remove('hidden');
-        }
+        if (SCHOOL_URL.indexOf('script.google.com') !== -1) scLoadFeed();
+        // #our-school сілтемесімен келсе (ескі сілтемелер) – терезені ашамыз
+        if (location.hash === '#our-school') { history.replaceState(null, '', location.pathname); scOpen(); }
 
         // Пернетақта ашылғанда (өріс белсенді) төменгі мәзірді жасырамыз – iPhone-да өрісті жаппасын
         let kbTimer = null;
