@@ -445,6 +445,44 @@
         #news { background: none; }
         #news::before { display: none; }
 
+        /* --- Біздің мектепте --- */
+        .sc-grid { display: grid; grid-template-columns: 1fr; gap: 16px; align-items: start; }
+        @media (min-width: 1000px) { .sc-grid { grid-template-columns: 1.5fr 1fr; gap: 20px; } .sc-panel { position: sticky; top: 100px; } }
+        .sc-feed { display: grid; grid-template-columns: 1fr; gap: 14px; }
+        @media (min-width: 640px) { .sc-feed { grid-template-columns: 1fr 1fr; } }
+        .sc-post { background: #fff; border-radius: 26px; border: 1px solid var(--line); box-shadow: var(--shadow); padding: 10px; display: flex; flex-direction: column; }
+        .sc-post .ph { border-radius: 18px; overflow: hidden; aspect-ratio: 4/3; background: var(--soft); cursor: zoom-in; }
+        .sc-post .ph img { width: 100%; height: 100%; object-fit: cover; }
+        .sc-post .tx { padding: 12px 8px 4px; font-size: 15px; line-height: 1.6; font-weight: 600; color: #2E2945; white-space: pre-line; overflow-wrap: anywhere; }
+        .sc-post .by { display: flex; align-items: center; gap: 10px; padding: 10px 8px 6px; margin-top: auto; border-top: 1px dashed var(--line); }
+        .sc-post .by .av { width: 38px; height: 38px; border-radius: 50%; background: #DAF5E5; color: #11893F; font-weight: 900; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 14px; }
+        .sc-post .by b { font-weight: 900; font-size: 14px; display: block; }
+        .sc-post .by span { font-size: 12px; font-weight: 700; color: var(--ink3); }
+        .sc-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: var(--soft); padding: 5px; border-radius: 16px; margin: 4px 0 16px; }
+        .sc-tab { border: 0; background: none; padding: 10px; border-radius: 12px; font-weight: 900; font-family: inherit; font-size: 15px; color: var(--ink2); cursor: pointer; }
+        .sc-tab.is-active { background: #fff; color: var(--ink); box-shadow: 0 4px 12px -6px rgba(40,20,90,.35); }
+        .sc-check { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; font-weight: 700; color: var(--ink2); cursor: pointer; }
+        .sc-check input { width: 20px; height: 20px; accent-color: var(--purple); flex-shrink: 0; margin-top: 1px; }
+        .sc-count { align-self: flex-end; font-size: 13px; font-weight: 800; color: var(--ink3); }
+        .sc-count.over { color: #D96F00; }
+        .sc-photo { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 130px; border: 2px dashed #D9CCFF; border-radius: 18px; background: var(--soft); cursor: pointer; font-weight: 800; color: var(--ink2); font-size: 14px; overflow: hidden; }
+        .sc-photo img { width: 100%; max-height: 260px; object-fit: cover; display: block; }
+        .sc-msg { margin-top: 12px; padding: 12px 14px; border-radius: 16px; font-size: 14px; font-weight: 800; line-height: 1.45; }
+        .sc-msg.ok { background: #DDF7E7; color: #145A31; }
+        .sc-msg.err { background: #FFF0DC; color: #8A4B00; }
+        .sc-ini { display: flex; align-items: center; justify-content: center; font-weight: 900; color: #5B2FD6; background: #EAE2FF; font-size: 20px; }
+        .sc-mine-list { display: flex; flex-direction: column; gap: 8px; }
+        .sc-mine-item { background: var(--soft); border-radius: 16px; padding: 10px 12px; font-size: 13.5px; font-weight: 600; line-height: 1.45; }
+        .sc-mine-item .st { display: inline-block; font-size: 11px; font-weight: 900; padding: 3px 9px; border-radius: 999px; margin-bottom: 4px; }
+        .st-pending { background: #FFF1D0; color: #8A6A00; } .st-approved { background: #DDF7E7; color: #11893F; } .st-rejected { background: #ECE8F5; color: var(--ink2); }
+        /* Редакция кабинетіндегі тексеру тізімі (қараңғы фонда) */
+        .scm-item { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+        .scm-item img { width: 100%; max-height: 220px; object-fit: cover; border-radius: 12px; }
+        .scm-item p { color: rgba(255,255,255,.85); font-size: 14px; line-height: 1.5; white-space: pre-line; }
+        .scm-item small { color: rgba(255,255,255,.5); font-size: 12px; }
+        .scm-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .scm-btns button { border: 0; border-radius: 12px; padding: 10px; font-weight: 900; cursor: pointer; font-family: inherit; }
+
         /* --- Медиа мектеп --- */
         .u-rules { display: grid; grid-template-columns: 1fr; gap: 14px; }
         @media (min-width: 680px) { .u-rules { grid-template-columns: 1fr 1fr; } }
@@ -675,6 +713,7 @@
             </a>
             <div class="u-links">
                 <a href="#news">Жаңалықтар</a>
+                <a href="#our-school">Біздің мектепте</a>
                 <a href="#school">Медиа мектеп</a>
                 <a href="#anonymous-zone">Сырласу</a>
                 <a href="#about">Тарихы</a>
@@ -746,7 +785,7 @@
                         <a href="#certificate" class="u-action"><span class="u-tile t-yellow"><svg class="ic"><use href="#i-medal"/></svg></span>Сертификат</a>
                         <a href="#best-reporter" class="u-action"><span class="u-tile t-green"><svg class="ic"><use href="#i-trophy"/></svg></span>Үздік тілші</a>
                         <a href="#school" class="u-action"><span class="u-tile t-purple"><svg class="ic"><use href="#i-cap"/></svg></span>Мектеп</a>
-                        <a href="#editorial-team" class="u-action"><span class="u-tile t-lime"><svg class="ic"><use href="#i-people"/></svg></span>Редакция</a>
+                        <a href="#our-school" class="u-action"><span class="u-tile t-lime"><svg class="ic"><use href="#i-school"/></svg></span>Мектебім</a>
                     </div>
                 </div>
 
@@ -854,6 +893,106 @@
                 <button id="newsMoreBtn" onclick="showMoreNews()" class="u-btn u-btn-dark">
                     Тағы да <span id="newsMoreCount"></span> ↓
                 </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ БІЗДІҢ МЕКТЕПТЕ ============ -->
+    <section id="our-school" class="u-section" style="padding-top:0">
+        <div class="u-wrap">
+            <div class="u-head row">
+                <div style="display:flex;flex-direction:column;gap:12px">
+                    <span class="u-chip green"><svg class="ic"><use href="#i-school"/></svg> Жаңа рубрика</span>
+                    <h2 class="u-h2">Біздің мектепте</h2>
+                </div>
+                <p class="u-lead" style="font-size:15px">Мектебіңде не болып жатыр? Тіркел де, жаңалықты 70 сөзбен жаз, бір сурет қос. Редакция қарап шыққан соң сайтқа шығады!</p>
+            </div>
+
+            <div class="sc-grid">
+                <!-- Оқушылардың жарияланған жаңалықтары -->
+                <div class="sc-feed-wrap">
+                    <div id="scFeed" class="sc-feed"></div>
+                    <div id="scFeedEmpty" class="u-empty hidden">Әзірге жаңалық жоқ. Бірінші болып сен жаз!</div>
+                </div>
+
+                <!-- Кіру / тіркелу / жаңалық жазу -->
+                <div class="u-card u-pad sc-panel" id="scPanel">
+                    <!-- Кірмеген күй -->
+                    <div id="scAuth">
+                        <div class="u-form-head">
+                            <span class="u-avatar"><img src="balaqai_face.png" alt=""></span>
+                            <div><h3 class="u-h3">Мектеп тілшісі бол!</h3><p class="u-muted" style="font-size:13px;font-weight:700">Жазу үшін алдымен тіркел</p></div>
+                        </div>
+                        <div class="sc-tabs" role="tablist">
+                            <button type="button" class="sc-tab is-active" data-tab="login" onclick="scTab('login')">Кіру</button>
+                            <button type="button" class="sc-tab" data-tab="register" onclick="scTab('register')">Тіркелу</button>
+                        </div>
+                        <form id="scLoginForm" class="u-form" onsubmit="scLogin(event)">
+                            <div class="u-field"><label class="u-label" for="scLoginLogin">Логин</label>
+                                <input id="scLoginLogin" class="u-input" autocomplete="username" autocapitalize="none" required placeholder="мысалы: aigerim_45"></div>
+                            <div class="u-field"><label class="u-label" for="scLoginPass">Құпиясөз</label>
+                                <input id="scLoginPass" type="password" class="u-input" autocomplete="current-password" required placeholder="••••••"></div>
+                            <button type="submit" class="u-btn u-btn-grad u-btn-block" id="scLoginBtn">Кіру</button>
+                            <p class="u-hint">Құпиясөзді ұмытсаң, «Хат жазамын» бөлімі арқылы редакцияға жаз, қалпына келтіріп береміз.</p>
+                        </form>
+                        <form id="scRegForm" class="u-form hidden" onsubmit="scRegister(event)">
+                            <div class="u-field"><label class="u-label" for="scRegName">Аты-жөнің *</label>
+                                <input id="scRegName" class="u-input" maxlength="60" required placeholder="Айгерім Сәрсенова"></div>
+                            <div class="u-grid2" style="grid-template-columns:1.6fr 1fr">
+                                <div class="u-field"><label class="u-label" for="scRegSchool">Мектебің *</label>
+                                    <input id="scRegSchool" class="u-input" maxlength="100" required placeholder="№45 мектеп-лицей"></div>
+                                <div class="u-field"><label class="u-label" for="scRegGrade">Сыныбың *</label>
+                                    <input id="scRegGrade" class="u-input" maxlength="20" required placeholder="7 «Ә»"></div>
+                            </div>
+                            <div class="u-field"><label class="u-label" for="scRegRegion">Қала / аудан</label>
+                                <input id="scRegRegion" class="u-input" maxlength="60" placeholder="Астана"></div>
+                            <div class="u-grid2">
+                                <div class="u-field"><label class="u-label" for="scRegLogin">Логин ойлап тап *</label>
+                                    <input id="scRegLogin" class="u-input" maxlength="20" autocomplete="username" autocapitalize="none" required placeholder="aigerim_45"></div>
+                                <div class="u-field"><label class="u-label" for="scRegPass">Құпиясөз *</label>
+                                    <input id="scRegPass" type="password" class="u-input" minlength="6" autocomplete="new-password" required placeholder="кемінде 6 таңба"></div>
+                            </div>
+                            <p class="u-hint">Логин: латын әріптері, сандар, _ немесе . (3–20 таңба). Сайтта тек атың, мектебің мен сыныбың көрінеді.</p>
+                            <label class="sc-check"><input type="checkbox" id="scRegAgree" required> <span>Ата-анам не мұғалімім біледі және рұқсат берді</span></label>
+                            <button type="submit" class="u-btn u-btn-grad u-btn-block" id="scRegBtn">Тіркелу</button>
+                        </form>
+                        <p id="scAuthMsg" class="sc-msg hidden"></p>
+                    </div>
+
+                    <!-- Кірген күй: жаңалық жазу -->
+                    <div id="scWriter" class="hidden">
+                        <div class="u-form-head" style="justify-content:space-between">
+                            <div style="display:flex;align-items:center;gap:12px;min-width:0">
+                                <span class="u-avatar sc-ini" id="scIni">А</span>
+                                <div style="min-width:0"><h3 class="u-h3" id="scHello">Сәлем!</h3><p class="u-muted" style="font-size:13px;font-weight:700" id="scWho"></p></div>
+                            </div>
+                            <button type="button" class="u-btn u-btn-ghost u-btn-sm" onclick="scLogout()">Шығу</button>
+                        </div>
+                        <form id="scPostForm" class="u-form" onsubmit="scSubmit(event)">
+                            <div class="u-field">
+                                <label class="u-label" for="scText">Мектебіңдегі жаңалық *</label>
+                                <textarea id="scText" class="u-input" rows="5" maxlength="700" required placeholder="Не болды? Қашан? Кімдер қатысты? Қысқа әрі қызықты жаз..." oninput="scCount()"></textarea>
+                                <div class="sc-count"><span id="scWords">0</span> / 70 сөз</div>
+                            </div>
+                            <div class="u-field">
+                                <span class="u-label">Сурет (біреу, міндетті емес)</span>
+                                <label class="sc-photo" id="scPhotoBox">
+                                    <input type="file" id="scPhoto" accept="image/*" onchange="scPickPhoto()" hidden>
+                                    <img id="scPhotoPrev" class="hidden" alt="">
+                                    <span id="scPhotoHint"><svg class="ic" style="width:34px;height:34px"><use href="#i-image"/></svg><br>Сурет таңдау</span>
+                                </label>
+                                <button type="button" class="u-btn u-btn-ghost u-btn-sm hidden" id="scPhotoDel" onclick="scClearPhoto()" style="align-self:flex-start">Суретті алып тастау</button>
+                                <p class="u-hint">Суретте балалардың беті анық көрінсе, олардың рұқсатын ал.</p>
+                            </div>
+                            <button type="submit" class="u-btn u-btn-grad u-btn-block" id="scSendBtn">Редакцияға жіберу</button>
+                        </form>
+                        <p id="scWriteMsg" class="sc-msg hidden"></p>
+                        <div class="sc-mine">
+                            <h4 style="font-weight:900;margin:18px 0 8px">Менің жаңалықтарым</h4>
+                            <div id="scMine" class="sc-mine-list"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1429,6 +1568,21 @@
                     </div>
                 </div>
 
+                <!-- БІЗДІҢ МЕКТЕПТЕ: ТЕКСЕРУ -->
+                <div class="space-y-3 border-t border-white/10 pt-6">
+                    <div class="flex items-center justify-between gap-3">
+                        <h4 class="text-lg font-black uppercase text-[#B0FB26]">«Біздің мектепте»: тексеру</h4>
+                        <button onclick="scModLoad()" class="text-xs font-mono text-white/50 hover:text-[#B0FB26] underline">Жаңарту</button>
+                    </div>
+                    <p class="text-[11px] text-white/40">Оқушылар жіберген жаңалықтар. «Жариялау» басқанда ғана сайтқа шығады, «Қабылдамау» басса сурет өшіріледі.</p>
+                    <div id="scModList" class="space-y-3"></div>
+                    <div class="flex gap-2 pt-2">
+                        <input type="text" id="scResetLogin" class="flex-grow bg-black/40 text-white px-3 py-2.5 rounded-xl border-2 border-white/10 focus:border-[#B0FB26] focus:outline-none font-medium text-sm" placeholder="Оқушының логині (құпиясөзін жаңарту)">
+                        <button onclick="scModReset()" class="bg-[#0000CC] text-white font-bold px-4 rounded-xl text-sm">Жаңарту</button>
+                    </div>
+                    <p id="scResetMsg" class="text-sm text-[#B0FB26] hidden"></p>
+                </div>
+
                 <!-- СЕРТИФИКАТ АЛҒАНДАР -->
                 <div class="space-y-3 border-t border-white/10 pt-6">
                     <h4 class="text-lg font-black uppercase text-white">Сертификат алғандар</h4>
@@ -1464,6 +1618,8 @@
         // ⬇️ ULANTAI БОТЫНЫҢ БЭКЕНДІ (бөлек жоба). ulantai_bot.gs файлын
         // жариялаған соң шыққан URL-ды осы жерге қой:
         const BOT_URL = "https://script.google.com/macros/s/AKfycbxPJBLJQ0HKTidktxp-HYbRQYyQke7ZmIEAeX08Ldka8sRt1mNPDQ7xyPRaFmhfQvo3/exec";
+        // ⬇️ «БІЗДІҢ МЕКТЕПТЕ» БЭКЕНДІ (бөлек жоба, backend/school_news.gs)
+        const SCHOOL_URL = "https://script.google.com/macros/s/AKfycbwjHmb8zdTP38ofashN6wYzT_THij_WQSrhtfKvgBt5HavNKR5DXxvKgHsL6x6xYJ_9/exec";
 
         // ═══════════════════════════════════════════════════════════════
         // АЙДЫҢ ҮЗДІК ТІЛШІСІНІҢ ФОТОСЫ – репоның өзінен алынады.
@@ -3064,6 +3220,7 @@
                     document.getElementById('adminBestWrap').classList.toggle('hidden', currentAdmin.login !== 'nurlykhan');
                     loadNews();
                     loadBestReporter();
+                    if (typeof scModLoad === "function") scModLoad();
                 } else {
                     errEl.textContent = 'Логин не құпиясөз қате.';
                     errEl.classList.remove('hidden');
@@ -3335,6 +3492,207 @@
             document.getElementById('installHelp').classList.remove('hidden');
         }
         function closeInstallHelp() { document.getElementById('installHelp').classList.add('hidden'); }
+
+        // ============ «БІЗДІҢ МЕКТЕПТЕ» РУБРИКАСЫ ============
+        const SC_MAX_WORDS = 70;
+        let scPhotoData = '';
+        const scTokenGet = () => { try { return localStorage.getItem('ulan_school_token') || ''; } catch (e) { return ''; } };
+        const scTokenSet = (t) => { try { t ? localStorage.setItem('ulan_school_token', t) : localStorage.removeItem('ulan_school_token'); } catch (e) {} };
+
+        // POST (text/plain) – Apps Script жауабын оқуға болады, құпиясөз URL-ге түспейді
+        async function scApi(action, data) {
+            const res = await fetch(SCHOOL_URL, { method: 'POST', body: JSON.stringify(Object.assign({ action: action }, data || {})) });
+            return res.json();
+        }
+        function scMsg(id, text, ok) {
+            const el = document.getElementById(id);
+            el.textContent = text; el.className = 'sc-msg ' + (ok ? 'ok' : 'err');
+        }
+        function scWordCount(s) { return String(s || '').trim().split(/\s+/).filter(Boolean).length; }
+        function scInitials(name) { return String(name || '?').trim().split(/\s+/).slice(0, 2).map(w => w.charAt(0).toUpperCase()).join(''); }
+
+        function scTab(tab) {
+            document.querySelectorAll('.sc-tab').forEach(b => b.classList.toggle('is-active', b.dataset.tab === tab));
+            document.getElementById('scLoginForm').classList.toggle('hidden', tab !== 'login');
+            document.getElementById('scRegForm').classList.toggle('hidden', tab !== 'register');
+            document.getElementById('scAuthMsg').classList.add('hidden');
+        }
+
+        function scShowUser(user, posts) {
+            document.getElementById('scAuth').classList.add('hidden');
+            document.getElementById('scWriter').classList.remove('hidden');
+            document.getElementById('scIni').textContent = scInitials(user.name);
+            document.getElementById('scHello').textContent = 'Сәлем, ' + String(user.name).split(/\s+/)[0] + '!';
+            document.getElementById('scWho').textContent = [user.school, user.grade].filter(Boolean).join(', ');
+            const st = { pending: ['Тексерілуде', 'st-pending'], approved: ['Жарияланды', 'st-approved'], rejected: ['Қабылданбады', 'st-rejected'] };
+            const box = document.getElementById('scMine');
+            box.innerHTML = (posts && posts.length) ? posts.map(p => {
+                const s = st[p.status] || ['', ''];
+                return '<div class="sc-mine-item"><span class="st ' + s[1] + '">' + s[0] + '</span><div>' + escapeHtml(p.text).slice(0, 160) + (String(p.text).length > 160 ? '…' : '') + '</div></div>';
+            }).join('') : '<p class="u-muted" style="font-size:13px;font-weight:700">Әзірге жаңалық жібермедің.</p>';
+        }
+        function scShowAuth() {
+            document.getElementById('scAuth').classList.remove('hidden');
+            document.getElementById('scWriter').classList.add('hidden');
+        }
+
+        async function scRefreshMe() {
+            const token = scTokenGet();
+            if (!token) { scShowAuth(); return; }
+            try {
+                const r = await scApi('me', { token });
+                if (r.ok) scShowUser(r.user, r.posts);
+                else { if (r.relogin) scTokenSet(''); scShowAuth(); }
+            } catch (e) { scShowAuth(); }
+        }
+
+        async function scLogin(e) {
+            e.preventDefault();
+            const btn = document.getElementById('scLoginBtn'); btn.disabled = true;
+            try {
+                const r = await scApi('login', { login: document.getElementById('scLoginLogin').value.trim(), pass: document.getElementById('scLoginPass').value });
+                if (r.ok) { scTokenSet(r.token); document.getElementById('scLoginPass').value = ''; await scRefreshMe(); }
+                else scMsg('scAuthMsg', r.error || 'Кіру мүмкін болмады.', false);
+            } catch (err) { scMsg('scAuthMsg', 'Байланыс үзілді. Қайталап көр.', false); }
+            btn.disabled = false;
+        }
+
+        async function scRegister(e) {
+            e.preventDefault();
+            const btn = document.getElementById('scRegBtn'); btn.disabled = true;
+            const v = id => document.getElementById(id).value.trim();
+            try {
+                const r = await scApi('register', { name: v('scRegName'), school: v('scRegSchool'), grade: v('scRegGrade'), region: v('scRegRegion'),
+                                                    login: v('scRegLogin').toLowerCase(), pass: document.getElementById('scRegPass').value });
+                if (r.ok) { scTokenSet(r.token); document.getElementById('scRegForm').reset(); scShowUser(r.user, []); }
+                else scMsg('scAuthMsg', r.error || 'Тіркелу мүмкін болмады.', false);
+            } catch (err) { scMsg('scAuthMsg', 'Байланыс үзілді. Қайталап көр.', false); }
+            btn.disabled = false;
+        }
+
+        function scLogout() { scTokenSet(''); scShowAuth(); scTab('login'); }
+
+        function scCount() {
+            const n = scWordCount(document.getElementById('scText').value);
+            document.getElementById('scWords').textContent = n;
+            document.querySelector('.sc-count').classList.toggle('over', n > SC_MAX_WORDS);
+            document.getElementById('scSendBtn').disabled = n > SC_MAX_WORDS;
+        }
+
+        // Суретті телефонда кішірейтеміз (ұзын жағы 1280px, JPEG) – жылдам жүктеледі
+        function scPickPhoto() {
+            const file = document.getElementById('scPhoto').files[0];
+            if (!file) return;
+            if (!/^image\//.test(file.type)) { scMsg('scWriteMsg', 'Тек сурет файлын таңда.', false); return; }
+            const img = new Image();
+            const url = URL.createObjectURL(file);
+            img.onload = function () {
+                const k = Math.min(1, 1280 / Math.max(img.width, img.height));
+                const c = document.createElement('canvas');
+                c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+                c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+                scPhotoData = c.toDataURL('image/jpeg', 0.82);
+                URL.revokeObjectURL(url);
+                const prev = document.getElementById('scPhotoPrev');
+                prev.src = scPhotoData; prev.classList.remove('hidden');
+                document.getElementById('scPhotoHint').classList.add('hidden');
+                document.getElementById('scPhotoDel').classList.remove('hidden');
+            };
+            img.onerror = function () { scMsg('scWriteMsg', 'Суретті ашу мүмкін болмады. Басқа сурет таңда.', false); };
+            img.src = url;
+        }
+        function scClearPhoto() {
+            scPhotoData = '';
+            document.getElementById('scPhoto').value = '';
+            document.getElementById('scPhotoPrev').classList.add('hidden');
+            document.getElementById('scPhotoHint').classList.remove('hidden');
+            document.getElementById('scPhotoDel').classList.add('hidden');
+        }
+
+        async function scSubmit(e) {
+            e.preventDefault();
+            const text = document.getElementById('scText').value.trim();
+            const n = scWordCount(text);
+            if (n > SC_MAX_WORDS) { scMsg('scWriteMsg', 'Мәтін 70 сөзден аспауы керек. Қазір: ' + n + ' сөз.', false); return; }
+            if (n < 5) { scMsg('scWriteMsg', 'Жаңалықты кемінде 5 сөзбен жаз.', false); return; }
+            const btn = document.getElementById('scSendBtn'); btn.disabled = true; btn.textContent = 'Жіберілуде...';
+            try {
+                const r = await scApi('submit', { token: scTokenGet(), text, photo: scPhotoData });
+                if (r.ok) {
+                    scMsg('scWriteMsg', 'Рақмет! Жаңалығың редакцияға жетті. Тексерілген соң сайтқа шығады.', true);
+                    document.getElementById('scText').value = ''; scCount(); scClearPhoto(); scRefreshMe();
+                } else {
+                    if (r.relogin) { scTokenSet(''); scShowAuth(); }
+                    scMsg('scWriteMsg', r.error || 'Жіберу мүмкін болмады.', false);
+                }
+            } catch (err) { scMsg('scWriteMsg', 'Байланыс үзілді. Қайталап көр.', false); }
+            btn.disabled = false; btn.textContent = 'Редакцияға жіберу';
+        }
+
+        // Сайттағы көпшілікке ашық тізім
+        async function scLoadFeed() {
+            const feed = document.getElementById('scFeed');
+            try {
+                const r = await jsonp({ action: 'list' }, 20000, SCHOOL_URL);
+                const posts = (r && r.posts) || [];
+                document.getElementById('scFeedEmpty').classList.toggle('hidden', posts.length > 0);
+                feed.innerHTML = posts.map(p => `
+                    <article class="sc-post">
+                        ${p.photo ? `<div class="ph"><img src="${escapeHtml(p.photo)}" alt="" loading="lazy" onclick="openLightbox(this.src, '')" onerror="this.parentNode.remove()"></div>` : ''}
+                        <div class="tx">${escapeHtml(dashFix(p.text))}</div>
+                        <div class="by"><span class="av">${escapeHtml(scInitials(p.name))}</span>
+                            <div><b>${escapeHtml(p.name)}</b><span>${escapeHtml([p.school, p.grade].filter(Boolean).join(', '))} · ${escapeHtml(formatKkDate(p.date))}</span></div></div>
+                    </article>`).join('');
+            } catch (e) {
+                document.getElementById('scFeedEmpty').classList.remove('hidden');
+            }
+        }
+
+        // ----- Редакция кабинеті: тексеру -----
+        async function scModLoad() {
+            const box = document.getElementById('scModList');
+            if (!box || !currentAdmin) return;
+            box.innerHTML = '<p class="text-white/40 text-sm">Жүктелуде...</p>';
+            try {
+                const r = await scApi('modList', { modLogin: currentAdmin.login, modPass: currentAdmin.pass });
+                if (!r.ok) { box.innerHTML = '<p class="text-red-400 text-sm">' + escapeHtml(r.error || 'Қате') + '</p>'; return; }
+                box.innerHTML = r.posts.length ? r.posts.map(p => `
+                    <div class="scm-item" data-id="${escapeHtml(p.id)}">
+                        ${p.photo ? `<img src="${p.photo}" alt="">` : ''}
+                        <p>${escapeHtml(p.text)}</p>
+                        <small>${escapeHtml(p.name)} · ${escapeHtml(p.school)}, ${escapeHtml(p.grade)} · логин: ${escapeHtml(p.login)} · ${escapeHtml(formatKkDate(p.date))}</small>
+                        <div class="scm-btns">
+                            <button style="background:#B0FB26;color:#111" onclick="scModSet('${escapeHtml(p.id)}','approved',this)">Жариялау</button>
+                            <button style="background:rgba(255,255,255,.12);color:#fff" onclick="scModSet('${escapeHtml(p.id)}','rejected',this)">Қабылдамау</button>
+                        </div>
+                    </div>`).join('') : '<p class="text-white/40 text-sm">Тексеретін жаңалық жоқ.</p>';
+            } catch (e) { box.innerHTML = '<p class="text-red-400 text-sm">Байланыс қатесі.</p>'; }
+        }
+        async function scModSet(id, status, btn) {
+            if (status === 'rejected' && !confirm('Бұл жаңалықты қабылдамайсыз ба? Суреті өшіріледі.')) return;
+            btn.disabled = true;
+            try {
+                const r = await scApi('modSet', { modLogin: currentAdmin.login, modPass: currentAdmin.pass, id, status });
+                if (r.ok) { btn.closest('.scm-item').remove(); scLoadFeed(); }
+                else { alert(r.error || 'Қате'); btn.disabled = false; }
+            } catch (e) { alert('Байланыс қатесі.'); btn.disabled = false; }
+        }
+        async function scModReset() {
+            const login = document.getElementById('scResetLogin').value.trim();
+            const msg = document.getElementById('scResetMsg');
+            if (!login || !currentAdmin) return;
+            try {
+                const r = await scApi('modResetPass', { modLogin: currentAdmin.login, modPass: currentAdmin.pass, login });
+                msg.textContent = r.ok ? ('Жаңа уақытша құпиясөз: ' + r.tempPass + ' (оқушыға жеке хабарлаңыз)') : (r.error || 'Қате');
+                msg.classList.remove('hidden');
+            } catch (e) { msg.textContent = 'Байланыс қатесі.'; msg.classList.remove('hidden'); }
+        }
+
+        if (SCHOOL_URL.indexOf('script.google.com') !== -1) {
+            scLoadFeed(); scRefreshMe();
+        } else {
+            document.getElementById('scFeedEmpty').classList.remove('hidden');
+        }
 
         // Пернетақта ашылғанда (өріс белсенді) төменгі мәзірді жасырамыз – iPhone-да өрісті жаппасын
         let kbTimer = null;
