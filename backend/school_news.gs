@@ -175,8 +175,11 @@ function rows_(sh, cols) {
   v.shift();
   return v.map(function (r, i) { const o = { _row: i + 2 }; keys.forEach(function (k, j) { o[k] = r[j]; }); return o; });
 }
-function rowOf_(cols, o) { return KEYS(cols).map(function (k) { return o[k] == null ? '' : o[k]; }); }
-function setCell_(sh, row, cols, key, val) { sh.getRange(row, KEYS(cols).indexOf(key) + 1).setValue(val); }
+// Формула енгізуден қорғау: = + - @ белгісінен басталған мәтіннің алдына апостроф қосылады (кестеде көрінбейді). Тек жүйенің өз формуласы (photoLink) өтеді.
+const FORMULA_OK = { photoLink: true };
+function safeCell_(key, v) { return (typeof v === 'string' && !FORMULA_OK[key] && /^\s*[=+\-@\t\r]/.test(v)) ? String.fromCharCode(39) + v : v; }
+function rowOf_(cols, o) { return KEYS(cols).map(function (k) { return safeCell_(k, o[k] == null ? '' : o[k]); }); }
+function setCell_(sh, row, cols, key, val) { sh.getRange(row, KEYS(cols).indexOf(key) + 1).setValue(safeCell_(key, val)); }
 function photoFormula_(id) { return '=HYPERLINK("https://drive.google.com/file/d/' + id + '/view","Суретті ашу")'; }
 function hex_(bytes) { return bytes.map(function (b) { return ('0' + (b & 255).toString(16)).slice(-2); }).join(''); }
 function hash_(salt, pass) {
