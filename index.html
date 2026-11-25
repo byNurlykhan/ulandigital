@@ -3115,8 +3115,20 @@
 
         // Бөлісуге арналған сілтеме: /n/<id>/ беті мессенджерде суретімен көрінеді,
         // ал ашқанда мақалаға (/#news-<id>) бағыттайды.
+        // Жаңа жаңалықтың /n/<id>/ беті GitHub Actions жасағанша болмауы мүмкін –
+        // ондай кезде мақаланың тікелей сілтемесін береміз (превьюі «Ұлан»-ның жалпы суреті).
+        const newsPageReady = {};
+        function checkNewsPage(id) {
+            id = String(id);
+            if (newsPageReady[id] === true) return;
+            fetch('/n/' + encodeURIComponent(id) + '/', { method: 'HEAD', cache: 'no-store' })
+                .then(function (r) { newsPageReady[id] = r.ok; })
+                .catch(function () {});
+        }
         function newsLinkFor(id) {
-            return location.origin + '/n/' + encodeURIComponent(String(id)) + '/';
+            id = String(id);
+            if (newsPageReady[id] === false) return location.origin + '/#news-' + encodeURIComponent(id);
+            return location.origin + '/n/' + encodeURIComponent(id) + '/';
         }
 
         function openNewsDetail(id) {
@@ -3126,6 +3138,7 @@
             // Мекенжай жолағына мақаланың жеке сілтемесін жазамыз
             try { history.replaceState(null, '', '#news-' + encodeURIComponent(String(id))); } catch (e) {}
             pingNewsView(id);
+            checkNewsPage(id);
             const m = document.getElementById('newsDetailModal');
             const img = document.getElementById('newsDetailImageWrap');
             if (item.imageUrl) {

@@ -6,6 +6,8 @@ on:
   schedule:
     - cron: '*/30 * * * *'   # әр 30 минут сайын
   workflow_dispatch:          # Actions бетінен қолмен іске қосуға болады
+  repository_dispatch:        # жаңалық жарияланғанда Apps Script бірден шақырады
+    types: [news-published]
 
 permissions:
   contents: write
