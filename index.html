@@ -2731,8 +2731,11 @@
             let ns = 70; ctx.font = CARD_F(900, ns);
             while (ctx.measureText(name).width > cardW - 120 && ns > 32) { ns -= 3; ctx.font = CARD_F(900, ns); }
             ctx.fillStyle = CARD_INK; ctx.fillText(name || '–', cx, ry + 142);
-            ctx.fillStyle = CARD_INK2; ctx.font = CARD_F(700, 24);
-            ctx.fillText('«Ұлан» балалар мен жасөспірімдер газеті', cx, ry + 188);
+            const subtitle = '«Ұлан» балалар мен жасөспірімдердің мемлекеттік газеті';
+            let ss = 24; ctx.font = CARD_F(700, ss);
+            while (ctx.measureText(subtitle).width > cardW - 80 && ss > 16) { ss -= 1; ctx.font = CARD_F(700, ss); }
+            ctx.fillStyle = CARD_INK2;
+            ctx.fillText(subtitle, cx, ry + 188);
 
             // --- Төменгі қатар: мөр (сол), күні мен сайт, Балақай (оң бұрыштан) ---
             const rowY = cardY + cardH - 44;
